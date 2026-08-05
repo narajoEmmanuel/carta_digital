@@ -6,11 +6,13 @@ export default function HomeHub({ onOpenPostcard, onOpenEnvelope }) {
   return (
     <main className={`${styles.hub} screen-enter`}>
       <div className={styles.hub__stage}>
-        <div className={`${styles.hub__piece} ${styles['hub__piece--postcard']}`}>
-          <PostcardPreview onOpen={onOpenPostcard} />
-        </div>
-        <div className={`${styles.hub__piece} ${styles['hub__piece--envelope']}`}>
-          <EnvelopePreview onOpen={onOpenEnvelope} />
+        <div className={styles.hub__stack}>
+          <div className={`${styles.hub__piece} ${styles['hub__piece--postcard']}`}>
+            <PostcardPreview onOpen={onOpenPostcard} />
+          </div>
+          <div className={`${styles.hub__piece} ${styles['hub__piece--envelope']}`}>
+            <EnvelopePreview onOpen={onOpenEnvelope} />
+          </div>
         </div>
       </div>
     </main>
