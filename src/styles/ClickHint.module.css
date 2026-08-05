@@ -1,0 +1,48 @@
+.hint {
+  position: absolute;
+  z-index: 5;
+  width: clamp(5.75rem, 22vw, 8rem);
+  height: auto;
+  overflow: visible;
+  display: block;
+  pointer-events: none;
+  animation: hintBob 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 1px 3px rgba(20, 16, 12, 0.2));
+}
+
+.icon {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.bottomRight {
+  right: -0.85rem;
+  bottom: -1.1rem;
+}
+
+.bottomLeft {
+  left: -0.85rem;
+  bottom: -3.4rem;
+}
+
+@keyframes hintBob {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.92;
+  }
+  50% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hint {
+    animation: none;
+  }
+}

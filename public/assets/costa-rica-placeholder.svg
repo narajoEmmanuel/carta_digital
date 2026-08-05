@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560" viewBox="0 0 800 560" role="img" aria-label="Paisaje Costa Rica placeholder">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7eb8c9"/>
+      <stop offset="55%" stop-color="#b8d4c8"/>
+      <stop offset="100%" stop-color="#d4c49a"/>
+    </linearGradient>
+    <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d6b4f"/>
+      <stop offset="100%" stop-color="#2a4a38"/>
+    </linearGradient>
+    <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a8a72"/>
+      <stop offset="100%" stop-color="#3f6a55"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="560" fill="url(#sky)"/>
+  <ellipse cx="620" cy="140" rx="70" ry="28" fill="#f2e8d5" opacity="0.55"/>
+  <ellipse cx="660" cy="140" rx="40" ry="18" fill="#f7f0e0" opacity="0.4"/>
+  <path d="M0 320 C120 280 200 300 320 270 C440 240 520 260 640 245 C720 235 780 250 800 255 L800 560 L0 560 Z" fill="url(#far)" opacity="0.85"/>
+  <path d="M0 380 C100 340 180 360 300 330 C450 290 540 350 680 320 C740 308 780 330 800 340 L800 560 L0 560 Z" fill="url(#hill)"/>
+  <path d="M120 420 L145 300 L170 420 Z" fill="#1e3a2c"/>
+  <path d="M145 300 C110 280 100 250 145 240 C190 250 180 280 145 300 Z" fill="#2f5a40"/>
+  <path d="M400 450 L430 310 L460 450 Z" fill="#1a3326"/>
+  <path d="M430 310 C390 285 380 250 430 235 C480 250 470 285 430 310 Z" fill="#356b48"/>
+  <path d="M620 470 L645 360 L670 470 Z" fill="#1e3a2c"/>
+  <path d="M645 360 C615 340 608 315 645 300 C682 315 675 340 645 360 Z" fill="#2f5a40"/>
+  <rect x="0" y="500" width="800" height="60" fill="#2a4234" opacity="0.35"/>
+  <text x="400" y="290" text-anchor="middle" fill="#f5efe2" font-family="Georgia, serif" font-size="22" opacity="0.55" letter-spacing="3">COSTA RICA</text>
+</svg>

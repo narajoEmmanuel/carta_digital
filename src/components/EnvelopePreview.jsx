@@ -1,0 +1,23 @@
+import ClickHint from './ClickHint';
+import styles from '../styles/EnvelopePreview.module.css';
+
+const SOBRE_PREVIEW = '/assets/home/sobre_preview.png';
+
+export default function EnvelopePreview({ onOpen }) {
+  return (
+    <button
+      type="button"
+      className={styles.wrap}
+      onClick={onOpen}
+      aria-label="Abrir carta"
+    >
+      <img
+        className={styles.image}
+        src={SOBRE_PREVIEW}
+        alt=""
+        draggable={false}
+      />
+      <ClickHint position="bottomLeft" />
+    </button>
+  );
+}

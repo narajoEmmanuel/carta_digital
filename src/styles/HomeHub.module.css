@@ -1,0 +1,70 @@
+.hub {
+  height: 100dvh;
+  min-height: 100dvh;
+  max-height: 100%;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+  overflow: hidden;
+  background-color: #ebe2d0;
+  background-image: url('/assets/home/fondo_inicial.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hub__stage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: min(100%, 26rem);
+  max-width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.hub__piece {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hub__piece > * {
+  pointer-events: auto;
+}
+
+/* Postal — zona superior (~8% desde arriba) */
+.hub__piece--postcard {
+  top: 8%;
+  transform: rotate(-1.5deg);
+}
+
+/* Sobre — ~58% de la altura del viewport */
+.hub__piece--envelope {
+  top: 58%;
+  transform: rotate(2deg);
+}
+
+@media (max-height: 700px) {
+  .hub__piece--postcard {
+    top: 7%;
+  }
+
+  .hub__piece--envelope {
+    top: 56%;
+  }
+}
+
+@media (min-height: 850px) {
+  .hub__piece--postcard {
+    top: 9%;
+  }
+
+  .hub__piece--envelope {
+    top: 60%;
+  }
+}
