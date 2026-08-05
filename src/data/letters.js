@@ -1,6 +1,6 @@
 /**
- * Datos de ejemplo para la carta digital.
- * Cambiá este objeto (o agregá más entradas) para personalizar la experiencia.
+ * Contenido editable de la carta digital.
+ * Las rutas de imagen apuntan a public/assets.
  */
 export const letters = {
   andrea: {
@@ -8,47 +8,54 @@ export const letters = {
     nombre: 'Andrea',
 
     postcard: {
-      // Ruta relativa a public/ — reemplazá con una foto real de Costa Rica
-      imagen: '/assets/costa-rica-placeholder.svg',
-      lugar: 'Costa Rica',
-      mensaje:
-        'Guardé este pedacito de verde y cielo para vos. Que te llegue como un recuerdo suave, aunque estemos lejos.',
-      firmante: 'Con cariño',
+      frontImage: '/assets/postcard/postal_front.png',
+      backImage: '/assets/postcard/postal_back.png',
     },
 
     envelope: {
-      destinatario: 'Para Andrea',
-      remitente: 'De alguien que te quiere',
-      intro: 'Hay cosas que se dicen mejor en papel.',
+      letterImage: '/assets/envelope/sobre_carta_saliendo.png',
     },
 
-    carta: {
-      secciones: [
+    letter: {
+      paperImage: '/assets/letter/hoja_carta.png',
+      signatureImage: '/assets/letter/firma_artista.png',
+      greeting: 'Querida Andrea:',
+      pages: [
         {
-          id: 'saludo',
-          titulo: null,
-          texto:
-            'Andrea,\n\nEscribí esto pensando en vos. No como un mensaje rápido, sino como algo que se abre despacio.',
-        },
-        {
-          id: 'cuerpo',
-          titulo: null,
-          texto:
+          id: 'gratitude',
+          showGreeting: true,
+          paragraphs: [
+            'Escribí esto pensando en vos. No como un mensaje rápido, sino como algo que se abre despacio.',
             'Quería dejarte un pedacito de cercanía: de esas charlas que se alargan, de las risas que no necesitan explicación, de la amistad que se queda aunque el tiempo se mueva.',
+          ],
         },
         {
-          id: 'cierre',
-          titulo: null,
-          texto:
-            'Gracias por ser parte de mi historia. Que esta carta te encuentre bien, y que sepas que estás presente, siempre.',
+          id: 'personal',
+          paragraphs: [
+            'Gracias por ser parte de mi historia. Por esos gestos que se quedan guardados y por la forma en que hacés que todo se sienta un poco más liviano.',
+          ],
+        },
+        {
+          id: 'apology',
+          paragraphs: [
+            'Si en algún momento me faltó estar presente como hubiese querido, perdón. La intención siempre fue cuidarte desde donde pudiera.',
+          ],
+        },
+        {
+          id: 'closing',
+          paragraphs: [
+            'Que esta carta te encuentre bien, y que sepas que estás presente, siempre.',
+            'Gracias por todo lo compartido.',
+          ],
+          showClosing: true,
+          showSignature: true,
         },
       ],
-      firma: 'Con todo el cariño del mundo',
+      closing: 'Con cariño,',
     },
 
-    abrazo: {
-      mensaje: 'Este abrazo es para vos. Apretadito, sincero, y sin prisa.',
-      nota: 'Guardalo para cuando lo necesites.',
+    hug: {
+      image: '/assets/hug/muneco_abrazo_final.png',
     },
   },
 };

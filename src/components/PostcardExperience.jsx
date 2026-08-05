@@ -13,7 +13,8 @@ function BackButton({ onClick }) {
 
 export default function PostcardExperience({ letter, onBack }) {
   const [flipped, setFlipped] = useState(false);
-  const { imagen, lugar, mensaje, firmante } = letter.postcard;
+  const frontImage = letter.postcard.frontImage ?? '/assets/postcard/postal_front.png';
+  const backImage = letter.postcard.backImage ?? '/assets/postcard/postal_back.png';
 
   return (
     <main className={`${styles.screen} screen-enter`}>
@@ -26,45 +27,15 @@ export default function PostcardExperience({ letter, onBack }) {
           onClick={() => setFlipped((v) => !v)}
           aria-label={flipped ? 'Ver frente de la postal' : 'Ver reverso de la postal'}
         >
-          {/* Frente */}
-          <div className={`${styles.face} ${styles.front} paper-noise`}>
-            <div className={styles.frontFrame}>
-              <img src={imagen} alt={`Paisaje de ${lugar}`} />
-            </div>
-            <div className={styles.stamp} aria-hidden="true">
-              <span className={styles.stampDot} />
-              <span className={styles.stampText}>CR · AIR</span>
-            </div>
-            <span className={styles.place}>{lugar}</span>
+          <div className={`${styles.face} ${styles.front}`}>
+            <img src={frontImage} alt="Frente de la postal" draggable={false} />
           </div>
 
-          {/* Reverso */}
-          <div className={`${styles.face} ${styles.back} paper-noise`}>
-            <div className={styles.messageCol}>
-              <p className={styles.message}>{mensaje}</p>
-              <p className={styles.sign}>{firmante}</p>
-            </div>
-            <div className={styles.addressCol}>
-              <div className={styles.postmark} aria-hidden="true">
-                <span>
-                  Correo
-                  <br />
-                  amistad
-                </span>
-              </div>
-              <div className={styles.lines} aria-hidden="true">
-                <span className={styles.line} />
-                <span className={styles.line} />
-                <span className={styles.line} />
-              </div>
-            </div>
+          <div className={`${styles.face} ${styles.back}`}>
+            <img src={backImage} alt="Reverso de la postal" draggable={false} />
           </div>
         </button>
       </div>
-
-      <p className={styles.hintTap} aria-hidden="true">
-        {flipped ? 'tocá para ver el frente' : 'tocá para dar vuelta'}
-      </p>
     </main>
   );
 }

@@ -10,23 +10,28 @@
     radial-gradient(ellipse at 30% 20%, rgba(197, 212, 200, 0.25), transparent 50%),
     linear-gradient(180deg, #3a4f47 0%, #2a3d36 55%, #243430 100%);
   position: relative;
+  overflow: hidden;
 }
 
 .stage {
-  width: min(100%, 22rem);
-  perspective: 1200px;
+  width: min(100%, 21rem);
+  perspective: 1400px;
+  /* la sombra va aquí para no romper preserve-3d del flipper */
+  filter: drop-shadow(0 10px 22px rgba(10, 14, 12, 0.35));
 }
 
 .flipper {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transition: transform 0.7s cubic-bezier(0.4, 0.05, 0.2, 1);
   cursor: pointer;
   border: none;
   padding: 0;
   background: transparent;
+  outline: none;
 }
 
 .flipper.isFlipped {
@@ -40,155 +45,34 @@
   -webkit-backface-visibility: hidden;
   border-radius: 3px;
   overflow: hidden;
-  box-shadow: var(--shadow-paper);
+  background: #ebe2d0;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 }
 
-.front {
-  background: var(--post-paper);
-  padding: 0.65rem;
-  border: 1px solid var(--post-edge);
-}
-
-.frontFrame {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border: 1px solid rgba(61, 92, 82, 0.2);
-}
-
-.frontFrame img {
+.face img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: sepia(0.2) contrast(1.04) saturate(0.88);
+  object-position: center;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.stamp {
-  position: absolute;
-  top: 0.85rem;
-  right: 0.85rem;
-  width: 2.4rem;
-  height: 2.9rem;
-  background: linear-gradient(160deg, #a84848, #6f2828);
-  border: 1px dashed rgba(255, 230, 220, 0.4);
-  transform: rotate(5deg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.15rem;
+.front {
+  transform: rotateY(0deg);
   z-index: 2;
-}
-
-.stampDot {
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 230, 220, 0.5);
-}
-
-.stampText {
-  font-family: var(--font-display);
-  font-size: 0.42rem;
-  letter-spacing: 0.1em;
-  color: rgba(255, 240, 230, 0.85);
-}
-
-.place {
-  position: absolute;
-  left: 1rem;
-  bottom: 0.9rem;
-  z-index: 2;
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(245, 240, 228, 0.95);
-  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .back {
-  background:
-    linear-gradient(90deg, transparent 49.5%, rgba(180, 160, 130, 0.35) 49.5%, rgba(180, 160, 130, 0.35) 50.5%, transparent 50.5%),
-    linear-gradient(180deg, #efe6d4, var(--post-paper-deep));
   transform: rotateY(180deg);
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--post-edge);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.85rem;
+  z-index: 1;
 }
 
-.messageCol {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-right: 0.35rem;
-}
-
-.message {
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  line-height: 1.55;
-  color: var(--post-ink);
-  font-style: italic;
-}
-
-.sign {
-  margin-top: 0.75rem;
-  font-family: var(--font-hand);
-  font-size: 1.15rem;
-  color: var(--post-accent);
-}
-
-.addressCol {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.75rem;
-  padding-top: 0.2rem;
-}
-
-.postmark {
-  width: 3.2rem;
-  height: 3.2rem;
-  border: 2px solid rgba(61, 92, 82, 0.35);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  transform: rotate(-12deg);
-  opacity: 0.7;
-}
-
-.postmark span {
-  font-family: var(--font-ui);
-  font-size: 0.48rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-align: center;
-  color: var(--post-accent);
-  line-height: 1.2;
-}
-
-.lines {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  margin-top: auto;
-}
-
-.line {
-  height: 1px;
-  background: rgba(80, 70, 55, 0.22);
-  width: 100%;
-}
-
-.hintTap {
-  margin-top: 1.35rem;
-  font-family: var(--font-hand);
-  font-size: 1.05rem;
-  color: rgba(197, 212, 200, 0.65);
-  letter-spacing: 0.02em;
+@media (prefers-reduced-motion: reduce) {
+  .flipper {
+    transition: none;
+  }
 }

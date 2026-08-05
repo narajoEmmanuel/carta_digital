@@ -10,30 +10,20 @@ function BackButton({ onClick }) {
   );
 }
 
-/**
- * Mini experiencia del abrazo.
- * figureSlot es el placeholder para insertar luego
- * una versión tipo muñeco de palo con rostro.
- */
 export default function HugCard({ letter, onBack }) {
-  const { mensaje, nota } = letter.abrazo;
+  const hugImage = letter.hug?.image ?? '/assets/hug/muneco_abrazo_final.png';
 
   return (
     <main className={`${styles.screen} screen-enter`}>
       <BackButton onClick={onBack} />
 
-      <div className={styles.card}>
-        <div className={styles.figureSlot} aria-hidden="true">
-          <div className={styles.placeholderFigure} />
-          <span className={styles.placeholderLabel}>figura</span>
-        </div>
-
-        <p className={styles.message}>{mensaje}</p>
-        {nota ? <p className={styles.note}>{nota}</p> : null}
-
-        <span className={styles.heart} aria-hidden="true">
-          ♥
-        </span>
+      <div className={styles.frame}>
+        <img
+          className={styles.hugImage}
+          src={hugImage}
+          alt="Un abrazo para vos"
+          draggable={false}
+        />
       </div>
     </main>
   );

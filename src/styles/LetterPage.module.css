@@ -1,53 +1,148 @@
-.page {
+.reader {
   width: 100%;
-  min-height: 18rem;
-  background:
-    linear-gradient(180deg, #f7efe0 0%, #efe3cd 100%);
-  border: 1px solid #d4c4a8;
-  border-radius: 2px 6px 3px 5px / 3px 4px 5px 2px;
-  padding: 1.6rem 1.35rem 1.75rem;
-  box-shadow:
-    0 10px 28px rgba(0, 0, 0, 0.28),
-    inset 0 0 40px rgba(180, 150, 100, 0.08);
-  position: relative;
-  animation: letterSlide 0.45s ease both;
+  height: 100%;
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  align-items: stretch;
 }
 
-.page::before {
-  content: '';
+.letterPaper {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  border-radius: 2px 6px 3px 5px / 3px 4px 5px 2px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+
+.pageEnter {
+  animation: pageTurn 0.4s ease both;
+}
+
+.paperBackground {
   position: absolute;
   inset: 0;
-  opacity: 0.08;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 160px;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
   pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  z-index: 0;
 }
 
-.page::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1.8rem;
-  height: 1.8rem;
-  background: linear-gradient(225deg, #e0d2b8 50%, transparent 50%);
-  opacity: 0.7;
-}
-
-.title {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: #3d5c52;
-  margin-bottom: 0.85rem;
-}
-
-.text {
-  font-family: var(--font-body);
-  font-size: 1.02rem;
-  line-height: 1.7;
-  color: #2c2a26;
-  white-space: pre-line;
+.letterContent {
   position: relative;
   z-index: 1;
+  height: 100%;
+  padding: clamp(1.6rem, 5vw, 2.2rem) clamp(1.15rem, 5vw, 1.7rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  overflow: hidden;
+}
+
+.greeting {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 500;
+  color: #2c2a26;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.paragraph {
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #2c2a26;
+  user-select: text;
+}
+
+.closing {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 1.02rem;
+  color: #2c2a26;
+  margin-top: auto;
+}
+
+.signature {
+  display: block;
+  width: clamp(88px, 28vw, 120px);
+  height: auto;
+  object-fit: contain;
+  align-self: center;
+  margin-top: 0.35rem;
+  margin-inline: auto;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.navRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  flex-shrink: 0;
+}
+
+.pageMark {
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: rgba(243, 230, 212, 0.65);
+}
+
+.nextArrow {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(243, 230, 212, 0.92);
+  color: #2a1f1a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  transition: transform 0.2s ease;
+  margin-left: auto;
+}
+
+.nextArrow:active {
+  transform: scale(0.94);
+}
+
+.nextArrow svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@keyframes pageTurn {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pageEnter {
+    animation: none;
+  }
+
+  .nextArrow {
+    transition: none;
+  }
 }
