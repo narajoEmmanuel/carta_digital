@@ -62,7 +62,7 @@
 
 .greeting {
   font-family: var(--font-letter);
-  font-size: 15px;
+  font-size: 17px;
   color: #2c2a26;
   line-height: 1.35;
 }
@@ -75,7 +75,7 @@
 
 .paragraph {
   font-family: var(--font-letter);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.55;
   color: #2c2a26;
   user-select: none;
@@ -83,7 +83,7 @@
 
 .closing {
   font-family: var(--font-letter);
-  font-size: 15px;
+  font-size: 17px;
   color: #2c2a26;
   margin-top: auto;
 }
