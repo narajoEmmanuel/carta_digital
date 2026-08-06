@@ -26,12 +26,18 @@ npm run links
 ### Publicar la siguiente amiga
 
 1. En `src/data/letters.js`, editá nombre / saludo / párrafos `personal`.
-2. Commit + push a `main` → redeploy automático en Vercel.
-3. `npm run links` y copiá el link.
+2. Publicá en Vercel (ver abajo) y corré `npm run links` para copiar el link.
 
 ## Deploy
 
-- **Vercel** (producción): proyecto `carta-digital` → `https://carta-digital-ashy.vercel.app`
-- GitHub Pages quedó de respaldo; la URL pública canónica es Vercel (sin usuario de GitHub).
+Solo **Vercel** (sin GitHub Pages):
 
-Las imágenes son **WebP** livianas (~1.7MB total) para que carguen en el celular.
+```bash
+npm run build
+npx vercel build --prod --yes
+npx vercel deploy --prebuilt --prod --yes
+```
+
+URL: `https://carta-digital-ashy.vercel.app`
+
+Las imágenes son **WebP** livianas para que carguen en el celular.
