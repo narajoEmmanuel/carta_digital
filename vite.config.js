@@ -5,4 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/',
   plugins: [react()],
+  // esbuild keeps @media (max-width: 480px). LightningCSS rewrites to
+  // width<=480px which older iOS Safari ignores → blank beige screen.
+  build: {
+    cssMinify: 'esbuild',
+  },
 })
