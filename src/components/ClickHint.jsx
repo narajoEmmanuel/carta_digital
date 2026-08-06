@@ -1,6 +1,7 @@
+import { asset } from '../lib/assets';
 import styles from '../styles/ClickHint.module.css';
 
-const CLICK_ICON = '/assets/home/icono_de_click.png';
+const CLICK_ICON = asset('assets/home/icono_de_click.png');
 
 /**
  * Indicador visual discreto de tap/click (asset collage).

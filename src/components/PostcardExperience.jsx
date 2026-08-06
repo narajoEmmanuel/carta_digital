@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import { asset } from '../lib/assets';
 import styles from '../styles/PostcardExperience.module.css';
 
-const POSTCARD_BACKGROUND = '/assets/postcard/fondo_postal_costa_rica.png';
+const POSTCARD_BACKGROUND = asset('assets/postcard/fondo_postal_costa_rica.png');
 
 export default function PostcardExperience({ letter, onBack }) {
   const [flipped, setFlipped] = useState(false);
-  const frontImage = letter.postcard.frontImage ?? '/assets/postcard/postal_front.png';
-  const backImage = letter.postcard.backImage ?? '/assets/postcard/postal_back.png';
+  const frontImage = letter.postcard.frontImage ?? asset('assets/postcard/postal_front.png');
+  const backImage = letter.postcard.backImage ?? asset('assets/postcard/postal_back.png');
 
   return (
     <main className={`${styles.postcardExperience} screen-enter`}>
@@ -35,7 +36,7 @@ export default function PostcardExperience({ letter, onBack }) {
               <img src={backImage} alt="Reverso de la postal" draggable={false} />
               <img
                 className={styles.signature}
-                src={letter.letter?.signatureImage ?? '/assets/letter/firma_artista.png'}
+                src={letter.letter?.signatureImage ?? asset('assets/letter/firma_artista.png')}
                 alt=""
                 aria-hidden="true"
                 draggable={false}

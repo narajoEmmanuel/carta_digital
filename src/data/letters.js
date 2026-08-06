@@ -4,24 +4,26 @@
  * Los ids internos amistad01…amistad10 siguen funcionando.
  */
 
+import { asset } from '../lib/assets';
+
 const SHARED_POSTCARD = {
-  frontImage: '/assets/postcard/postal_front.png',
-  backImage: '/assets/postcard/postal_back.png',
+  frontImage: asset('assets/postcard/postal_front.png'),
+  backImage: asset('assets/postcard/postal_back.png'),
 };
 
 const SHARED_ENVELOPE = {
-  closedImage: '/assets/home/sobre_preview.png',
-  openImage: '/assets/envelope/sobre_abierto.png',
-  letterImage: '/assets/envelope/sobre_carta_saliendo.png',
+  closedImage: asset('assets/home/sobre_preview.png'),
+  openImage: asset('assets/envelope/sobre_abierto.png'),
+  letterImage: asset('assets/envelope/sobre_carta_saliendo.png'),
 };
 
 const SHARED_LETTER_META = {
-  paperImage: '/assets/letter/hoja_carta.png',
-  signatureImage: '/assets/letter/firma_artista.png',
+  paperImage: asset('assets/letter/hoja_carta.png'),
+  signatureImage: asset('assets/letter/firma_artista.png'),
 };
 
 const SHARED_HUG = {
-  image: '/assets/hug/muneco_abrazo_final.png',
+  image: asset('assets/hug/muneco_abrazo_final.png'),
 };
 
 const GRATITUD = [
@@ -188,9 +190,9 @@ export const letters = {
 
 export const currentLetter = letters.amistad01;
 
-/** Link público para compartir: /?para=daniela-gomez */
+/** Link público para compartir: /carta_digital/?para=daniela-gomez */
 export function getSharePath(letter) {
-  return `/?para=${letter.slug}`;
+  return `${import.meta.env.BASE_URL}?para=${letter.slug}`;
 }
 
 /**

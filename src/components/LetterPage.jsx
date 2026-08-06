@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { asset } from '../lib/assets';
 import styles from '../styles/LetterPage.module.css';
 
-const PAPER = '/assets/letter/hoja_carta.png';
-const SIGNATURE = '/assets/letter/firma_artista.png';
-const HUG_INVITE_IMAGE = '/assets/hug/invitacion_abrazo.png';
+const PAPER = asset('assets/letter/hoja_carta.png');
+const SIGNATURE = asset('assets/letter/firma_artista.png');
+const HUG_INVITE_IMAGE = asset('assets/hug/invitacion_abrazo.png');
 
 export default function LetterPage({
   letter,

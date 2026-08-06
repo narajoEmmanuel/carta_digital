@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { asset } from '../lib/assets';
 import LetterPage from './LetterPage';
 import styles from '../styles/EnvelopeExperience.module.css';
 
@@ -7,8 +8,8 @@ const STEPS = {
   READING: 'reading',
 };
 
-const LETTER_OUT_IMAGE = '/assets/envelope/sobre_carta_saliendo.png';
-const ENVELOPE_BACKGROUND = '/assets/envelope/fondo_sobre_monterrey.png';
+const LETTER_OUT_IMAGE = asset('assets/envelope/sobre_carta_saliendo.png');
+const ENVELOPE_BACKGROUND = asset('assets/envelope/fondo_sobre_monterrey.png');
 
 function getRecipientSizeClass(name) {
   const length = name.trim().length;
