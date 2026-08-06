@@ -193,10 +193,9 @@ export const currentLetter = letters.amistad01;
 
 const DEFAULT_PUBLIC_ORIGIN = 'https://narajoEmmanuel.github.io/carta_digital';
 
-/** Link relativo al sitio: /carta_digital/?para=daniela-gomez (Pages) o /?para=… (Vercel) */
+/** Link relativo al sitio: /?para=daniela-gomez */
 export function getSharePath(letter) {
-  const base = import.meta.env?.BASE_URL ?? '/';
-  return `${base}?para=${letter.slug}`;
+  return `/?para=${letter.slug}`;
 }
 
 /** URL absoluta para compartir (WhatsApp, etc.). */
