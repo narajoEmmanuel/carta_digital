@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  padding: 3.1rem 0.35rem calc(0.85rem + var(--safe-bottom));
+  padding: 2.6rem 0.35rem calc(0.7rem + var(--safe-bottom));
   background: #ebe0cc;
 }
 
@@ -98,9 +98,9 @@
 
 .envelopeLetterScene {
   position: relative;
-  width: min(94%, 430px);
+  width: min(94%, 400px);
   margin-inline: auto;
-  transform: scale(1.14) translateY(-8%);
+  transform: scale(1.14) translateY(-6%);
   transform-origin: center center;
   overflow: visible;
 }
@@ -198,7 +198,7 @@
 
 .recipientLocation {
   align-self: center;
-  margin-top: -0.05rem;
+  margin-top: -0.35rem;
   margin-left: 0;
   color: #7f9aa3;
   font-family: 'Patrick Hand', Georgia, serif;

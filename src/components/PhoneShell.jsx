@@ -1,7 +1,7 @@
 import styles from '../styles/PhoneShell.module.css';
 
 /**
- * En escritorio muestra la app dentro de un marco tipo celular (390×844)
+ * En escritorio muestra la app dentro de un marco 9:16 (p. ej. 405×720)
  * para ajustar proporciones. En pantallas pequeñas es full-bleed.
  */
 export default function PhoneShell({ children }) {
@@ -13,7 +13,7 @@ export default function PhoneShell({ children }) {
         <div className={styles.homeIndicator} aria-hidden="true" />
       </div>
       <p className={styles.caption} aria-hidden="true">
-        vista 390 × 844
+        vista 9:16
       </p>
     </div>
   );

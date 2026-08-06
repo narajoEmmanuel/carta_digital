@@ -14,12 +14,14 @@
 }
 
 .phone {
+  /* Marco de referencia 9:16 (p. ej. 405 × 720) */
+  --phone-h: min(92dvh, 720px);
   position: relative;
-  width: min(100%, 390px);
-  height: min(92dvh, 844px);
-  aspect-ratio: 390 / 844;
-  max-height: 844px;
-  border-radius: 2.4rem;
+  height: var(--phone-h);
+  width: min(100%, calc(var(--phone-h) * 9 / 16));
+  aspect-ratio: 9 / 16;
+  max-width: 405px;
+  border-radius: 2.2rem;
   background: #0d0f0e;
   box-shadow:
     0 0 0 2px #2a2e2c,
@@ -31,11 +33,11 @@
 
 .notch {
   position: absolute;
-  top: 0.55rem;
+  top: 0.5rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 6.5rem;
-  height: 1.35rem;
+  width: 6rem;
+  height: 1.25rem;
   background: #0d0f0e;
   border-radius: 999px;
   z-index: 50;
@@ -53,15 +55,16 @@
 .screen > * {
   height: 100%;
   min-height: 100%;
+  max-height: 100%;
 }
 
 .homeIndicator {
   position: absolute;
-  bottom: 0.45rem;
+  bottom: 0.4rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 7.5rem;
-  height: 0.28rem;
+  width: 6.75rem;
+  height: 0.26rem;
   background: rgba(255, 255, 255, 0.35);
   border-radius: 999px;
   z-index: 50;
@@ -90,6 +93,7 @@
     width: 100%;
     height: 100%;
     min-height: 100dvh;
+    max-width: none;
     max-height: none;
     aspect-ratio: auto;
     border-radius: 0;
