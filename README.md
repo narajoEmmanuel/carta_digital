@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-En local: `http://localhost:5173/?para=daniela-gomez`
+Local (con base de Pages): `http://localhost:5173/carta_digital/?para=daniela-gomez`
 
 ## Links para compartir
 
@@ -17,8 +17,7 @@ Cada carta tiene un **slug** estable a partir del nombre (`Daniela Gómez` → `
 
 | | |
 |---|---|
-| Patrón | `https://carta-digital.vercel.app/?para=<slug>` |
-| Daniela (amistad01) | `https://carta-digital.vercel.app/?para=daniela-gomez` |
+| Daniela (amistad01) | `https://narajoEmmanuel.github.io/carta_digital/?para=daniela-gomez` |
 
 ```bash
 npm run links
@@ -26,27 +25,13 @@ npm run links
 
 ### Publicar la siguiente amiga
 
-1. En `src/data/letters.js`, editá `amistad02`…`amistad10`: `name`, `envelopeName` (opcional), `greeting` y los párrafos `personal`.
-2. El slug se genera solo (`slugifyName`).
-3. Commit + push a `main` → Vercel redeploya.
-4. Corré `npm run links` y copiá el link de esa persona.
+1. En `src/data/letters.js`, editá nombre / saludo / párrafos `personal`.
+2. Commit + push a `main` → redeploy automático.
+3. `npm run links` y copiá el link.
 
-Los ids viejos `?para=amistad01`…`amistad10` siguen resolviendo.
+## Deploy
 
-## Deploy (Vercel)
+- **GitHub Pages** (activo): workflow `.github/workflows/deploy-pages.yml`, `base: /carta_digital/`
+- **Vercel** (opcional, URL sin usuario de GitHub): `vercel.json` listo; `npx vercel --prod` una vez (loguearte) y luego actualizar `DEFAULT_PUBLIC_ORIGIN` en `letters.js`
 
-- Hosting principal: Vercel (URL sin usuario de GitHub)
-- `vite.config.js` → `base: '/'`
-- Push a `main` redeploya automáticamente si el repo está conectado a Vercel
-
-## Estructura
-
-```
-src/
-  components/   # HomeHub, postal, sobre, carta, abrazo
-  data/         # letters.js (10 amigas + getSharePath / listShareLinks)
-  lib/          # asset() respeta el base de Vite
-  styles/
-public/assets/  # imágenes (webp optimizadas)
-scripts/        # print-share-links.mjs → npm run links
-```
+Las imágenes son **WebP** livianas (~0.5MB el hub completo) para que carguen en el celular.
