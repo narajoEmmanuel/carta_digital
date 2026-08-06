@@ -79,7 +79,18 @@ const PERSONAL_PLACEHOLDER = [
  * PARTE 2 — igual en todas las cartas (después de lo personal).
  */
 const PART_2 = [
-  'Gracias por cada risa juntos, cada conversación, cada abrazo, cada chiste y consejo. Gracias por ser siempre una increíble persona, llena de luz, bondad y positivismo. Me has llenado de motivación en muchos momentos, y estoy muy feliz por haber tenido el privilegio de compartir momentos cercanos contigo.',
+  {
+    parts: [
+      {
+        text: 'Gracias por',
+        accent: true,
+        accentTone: 'amber',
+      },
+      {
+        text: ' cada risa juntos, cada conversación, cada abrazo, cada chiste y consejo. Gracias por ser siempre una increíble persona, llena de luz, bondad y positivismo. Me has llenado de motivación en muchos momentos, y estoy muy feliz por haber tenido el privilegio de compartir momentos cercanos contigo.',
+      },
+    ],
+  },
   {
     parts: [
       { text: 'Cada momento juntos los atesoraré siempre. ' },
@@ -91,25 +102,29 @@ const PART_2 = [
   },
   'Si algo he aprendido en los últimos días es lo siguiente:',
   {
-    text: 'Muchas veces vivimos pensando en el futuro, planeando y organizándolo todo, pero realmente no tenemos certeza de lo que sucederá mañana. Decirnos que más adelante encontraremos el momento perfecto para agradecerle a una amistad, dar un abrazo, compartir con alguien que queremos, hacer una llamada, reconciliarnos o dar el primer paso en un nuevo proyecto es, muchas veces, un engaño disfrazado de: «Pronto lo haré; ahorita no tengo tiempo».',
+    text: 'Muchas veces vivimos pensando en el futuro, planeando y organizándolo todo, pero realmente no tenemos certeza de lo que sucederá mañana.',
     inspire: true,
   },
   {
-    text: 'Yo caí en ese error. Pensé que todavía tendría tiempo para agradecerte en persona, crear un nuevo recuerdo contigo o decirte con calma lo especial que eres para mí. Ahora que regresé a casa, entendí que muchas veces esperamos el momento perfecto y, sin darnos cuenta, terminamos aplazando lo que realmente importa.',
+    text: 'Decirnos que más adelante encontraremos el momento perfecto para agradecerle a una amistad, dar un abrazo, compartir con alguien que queremos, hacer una llamada, reconciliarnos o dar el primer paso en un nuevo proyecto es, muchas veces, un engaño disfrazado de: «Pronto lo haré; ahorita no tengo tiempo».',
     inspire: true,
   },
   {
-    text: 'Por eso quiero compartirte algo que también intento aprender: si deseas agradecer, abrazar, llamar, reconciliarte o comenzar algo importante, hazlo hoy. Aunque dé miedo, incomode o parezca que habrá una mejor oportunidad después. No siempre sabemos cuánto tiempo tendremos, y el momento perfecto muchas veces no llega.',
+    text: 'Yo caí en ese error. Pensé que todavía tendría tiempo para agradecerte en persona, crear un nuevo recuerdo contigo y decirte lo especial que eres para mí. Ahora que regresé a casa, entendí que muchas veces esperamos el momento perfecto y, sin darnos cuenta, terminamos aplazando lo que realmente importa.',
     inspire: true,
   },
   {
-    text: 'Vive el hoy. Hazlo hoy. Disfruta el hoy.',
+    text: 'Por eso quiero compartirte algo que también intento aprender: hazlo hoy. Aunque dé miedo, incomode o parezca que habrá una mejor oportunidad después. No siempre sabemos cuánto tiempo tendremos, y el momento perfecto es ahora.',
+    inspire: true,
+  },
+  {
+    text: 'Vive el hoy.\nHazlo hoy.\nDisfruta el hoy.',
     punchline: true,
   },
   'Así que te pido una disculpa por a veces no haber sabido aprovechar al máximo nuestra amistad.',
   {
     parts: [
-      { text: 'También quiero aprovechar esta carta para pedirte perdón, ' },
+      { text: 'Perdón, ' },
       {
         text: 'si en algún momento un gesto, una frase, un comentario, una actitud o algún comportamiento mío pudo haberte causado incomodidad o haberte herido',
         italic: true,
@@ -119,7 +134,7 @@ const PART_2 = [
       },
     ],
   },
-  'Perdón también por las veces en las que desaparecí, tardé en responder o pude parecer distante. Nunca fue por falta de cariño ni porque no valorara nuestra amistad. A veces me encierro demasiado en mis cosas y no siempre sé demostrar correctamente lo importante que eres para mí.',
+  'Perdón por las veces en las que desaparecí, tardé en responder o pude parecer distante. Nunca fue por falta de cariño ni porque no valorara nuestra amistad. A veces me encierro demasiado en mis cosas y no siempre sé demostrar correctamente lo importante que eres para mí.',
   {
     text: 'Gracias por tu paciencia, por tu comprensión y por haber seguido estando.',
     punchline: true,

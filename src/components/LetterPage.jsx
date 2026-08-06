@@ -90,7 +90,9 @@ function renderAccentPart(part, partIndex, styles) {
       ? styles.inlineAccentRose
       : part.accentTone === 'teal'
         ? styles.inlineAccentTeal
-        : styles.inlineAccentCoral;
+        : part.accentTone === 'amber'
+          ? styles.inlineAccentAmber
+          : styles.inlineAccentCoral;
 
   return (
     <span
