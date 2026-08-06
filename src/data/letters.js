@@ -191,7 +191,7 @@ export const letters = {
 
 export const currentLetter = letters.amistad01;
 
-const DEFAULT_PUBLIC_ORIGIN = 'https://narajoEmmanuel.github.io/carta_digital';
+const DEFAULT_PUBLIC_ORIGIN = 'https://carta-digital-ashy.vercel.app';
 
 /** Link relativo al sitio: /?para=daniela-gomez */
 export function getSharePath(letter) {
