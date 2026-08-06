@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../styles/LetterPage.module.css';
 
 const PAPER = '/assets/letter/hoja_carta.png';
@@ -9,6 +9,7 @@ export default function LetterPage({
   letter,
   greeting,
   onOpenHug,
+  onHugScreenChange,
 }) {
   const {
     paperImage = PAPER,
@@ -27,6 +28,11 @@ export default function LetterPage({
   const paragraphs = page?.paragraphs || [];
   const isFirstLetterPage = pageIndex === 0;
   const isLastLetterPage = pageIndex === totalLetterPages - 1;
+
+  useEffect(() => {
+    onHugScreenChange?.(isHugPage);
+    return () => onHugScreenChange?.(false);
+  }, [isHugPage, onHugScreenChange]);
 
   const goPrev = () => setPageIndex((i) => Math.max(0, i - 1));
   const goNext = () => setPageIndex((i) => Math.min(totalSteps - 1, i + 1));
@@ -90,27 +96,27 @@ export default function LetterPage({
         </div>
       )}
 
-      <nav
-        className={`${styles.navRow} ${isHugPage ? styles.navRowHug : ''}`}
-        aria-label="Páginas de la carta"
-      >
-        <button
-          type="button"
-          className={styles.navArrow}
-          onClick={goPrev}
-          disabled={pageIndex === 0}
-          aria-label="Página anterior"
+      {!isHugPage && (
+        <nav
+          className={styles.navRow}
+          aria-label="Páginas de la carta"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
-            <path d="M15 6 9 12l6 6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
+          <button
+            type="button"
+            className={styles.navArrow}
+            onClick={goPrev}
+            disabled={pageIndex === 0}
+            aria-label="Página anterior"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+              <path d="M15 6 9 12l6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
 
-        <span className={styles.pageMark}>
-          {pageIndex + 1} / {totalSteps}
-        </span>
+          <span className={styles.pageMark}>
+            {pageIndex + 1} / {totalSteps}
+          </span>
 
-        {!isHugPage ? (
           <button
             type="button"
             className={styles.navArrow}
@@ -121,10 +127,8 @@ export default function LetterPage({
               <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
-        ) : (
-          <span className={styles.navSpacer} aria-hidden="true" />
-        )}
-      </nav>
+        </nav>
+      )}
     </div>
   );
 }

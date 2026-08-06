@@ -53,30 +53,30 @@
   position: relative;
   z-index: 1;
   height: 100%;
-  padding: clamp(2.8rem, 8vw, 3.4rem) clamp(1.15rem, 5vw, 1.7rem) clamp(3rem, 8vw, 3.6rem);
+  padding: clamp(4.2rem, 12vw, 5.2rem) clamp(1.75rem, 8vw, 2.4rem) clamp(4.4rem, 12vw, 5.4rem);
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.65rem;
   overflow: hidden;
 }
 
 .greeting {
   font-family: var(--font-letter);
-  font-size: clamp(1.25rem, 4.8vw, 1.5rem);
+  font-size: 12px;
   font-weight: 600;
   color: #2c2a26;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .section {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.55rem;
 }
 
 .paragraph {
   font-family: var(--font-letter);
-  font-size: clamp(1.08rem, 4.2vw, 1.28rem);
+  font-size: 11px;
   line-height: 1.55;
   color: #2c2a26;
   user-select: text;
@@ -84,14 +84,14 @@
 
 .closing {
   font-family: var(--font-letter);
-  font-size: clamp(1.15rem, 4.4vw, 1.35rem);
+  font-size: 12px;
   color: #2c2a26;
   margin-top: auto;
 }
 
 .signature {
   display: block;
-  width: clamp(88px, 28vw, 120px);
+  width: clamp(108px, 34vw, 148px);
   height: auto;
   object-fit: contain;
   align-self: center;

@@ -31,6 +31,7 @@ function BackButton({ onClick }) {
 
 export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
   const [step, setStep] = useState(STEPS.LETTER_OUT);
+  const [onHugInvite, setOnHugInvite] = useState(false);
   const openingImage = letter.envelope?.letterImage || LETTER_OUT_IMAGE;
   const envelopeName = letter.envelopeName || letter.name;
   const isReading = step === STEPS.READING;
@@ -52,7 +53,7 @@ export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
         </>
       )}
 
-      <BackButton onClick={onBack} />
+      {!onHugInvite && <BackButton onClick={onBack} />}
 
       <div className={`${styles.envelopeContent} ${isReading ? styles.panelReading : ''}`}>
         {step === STEPS.LETTER_OUT && (
@@ -106,6 +107,7 @@ export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
               letter={letter.letter}
               greeting={letter.greeting}
               onOpenHug={onOpenHug}
+              onHugScreenChange={setOnHugInvite}
             />
           </div>
         )}
