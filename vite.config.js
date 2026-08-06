@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Relative base so the same build works on GitHub Pages, Vercel, or any host.
+// Absolute root base — reliable on Vercel (and any apex host).
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [react()],
 })
