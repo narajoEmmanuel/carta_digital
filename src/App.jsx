@@ -1,20 +1,37 @@
-import { useState } from 'react';
-import { currentLetter } from './data/letters';
+import { useMemo, useState } from 'react';
+import { getLetterByRecipient } from './data/letters';
 import PhoneShell from './components/PhoneShell';
 import HomeHub from './components/HomeHub';
 import PostcardExperience from './components/PostcardExperience';
 import EnvelopeExperience from './components/EnvelopeExperience';
 import HugCard from './components/HugCard';
+import LetterUnavailable from './components/LetterUnavailable';
 
 /**
- * Flujo de pantallas con estado local:
- * home | postcard | envelope | hug
+ * Flujo: home | postcard | envelope | hug
+ * Destinatario: ?para=amistad01 … amistad10
  */
 export default function App() {
   const [view, setView] = useState('home');
-  const letter = currentLetter;
+
+  const { letter, recipientId } = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('para');
+    return {
+      recipientId: id,
+      letter: getLetterByRecipient(id),
+    };
+  }, []);
 
   const goHome = () => setView('home');
+
+  if (!letter) {
+    return (
+      <PhoneShell>
+        <LetterUnavailable recipientId={recipientId} />
+      </PhoneShell>
+    );
+  }
 
   let screen = (
     <HomeHub

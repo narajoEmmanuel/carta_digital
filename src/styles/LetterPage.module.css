@@ -5,8 +5,13 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0;
   align-items: stretch;
+  position: relative;
+}
+
+.readerHug {
+  background: #1a1612;
 }
 
 .letterPaper {
@@ -15,13 +20,13 @@
   flex: 1 1 auto;
   min-height: 0;
   height: auto;
-  border-radius: 2px 6px 3px 5px / 3px 4px 5px 2px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  border-radius: 0;
+  box-shadow: none;
   overflow: hidden;
 }
 
 .pageEnter {
-  animation: pageTurn 0.4s ease both;
+  animation: pageTurn 0.35s ease both;
 }
 
 .paperBackground {
@@ -40,38 +45,38 @@
   position: relative;
   z-index: 1;
   height: 100%;
-  padding: clamp(1.6rem, 5vw, 2.2rem) clamp(1.15rem, 5vw, 1.7rem);
+  padding: clamp(3.4rem, 10vw, 4rem) clamp(1.25rem, 5.5vw, 1.85rem) clamp(3.6rem, 10vw, 4.2rem);
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.8rem;
   overflow: hidden;
 }
 
 .greeting {
-  font-family: var(--font-display);
-  font-size: 1.12rem;
-  font-weight: 500;
+  font-family: var(--font-letter);
+  font-size: clamp(1.25rem, 4.8vw, 1.5rem);
+  font-weight: 600;
   color: #2c2a26;
+  line-height: 1.3;
 }
 
 .section {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.7rem;
 }
 
 .paragraph {
-  font-family: var(--font-body);
-  font-size: 0.98rem;
-  line-height: 1.65;
+  font-family: var(--font-letter);
+  font-size: clamp(1.08rem, 4.2vw, 1.28rem);
+  line-height: 1.55;
   color: #2c2a26;
   user-select: text;
 }
 
 .closing {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-size: 1.02rem;
+  font-family: var(--font-letter);
+  font-size: clamp(1.15rem, 4.4vw, 1.35rem);
   color: #2c2a26;
   margin-top: auto;
 }
@@ -89,47 +94,140 @@
   -webkit-user-drag: none;
 }
 
+/* Quinta pantalla: invitación full-bleed */
+.hugInviteScreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.hugInviteImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.hugInviteHotspot {
+  position: absolute;
+  left: 23%;
+  width: 54%;
+  bottom: 21%;
+  height: 9%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
+  z-index: 3;
+  transition: transform 150ms ease;
+}
+
+.hugInviteHotspot:active {
+  transform: scale(0.97);
+}
+
+.hugInviteHotspot:focus {
+  outline: none;
+}
+
+.hugInviteHotspot:focus-visible {
+  outline: 2px solid rgba(255, 248, 235, 0.85);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 .navRow {
+  position: absolute;
+  left: 50%;
+  right: auto;
+  bottom: calc(1.85rem + var(--safe-bottom));
+  transform: translateX(-50%);
+  z-index: 5;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  min-height: 2.75rem;
+  justify-content: center;
+  gap: 0.15rem;
+  width: auto;
+  min-height: 0;
   flex-shrink: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.navRowHug {
+  bottom: calc(1.1rem + var(--safe-bottom));
+  gap: 0.2rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(20, 16, 12, 0.38);
+  backdrop-filter: blur(6px);
+}
+
+.navRowHug .pageMark {
+  color: rgba(255, 248, 235, 0.78);
+}
+
+.navRowHug .navArrow {
+  color: rgba(255, 248, 235, 0.82);
 }
 
 .pageMark {
-  font-family: var(--font-hand);
+  font-family: var(--font-letter);
   font-size: 1.05rem;
-  color: rgba(243, 230, 212, 0.65);
+  color: rgba(55, 40, 28, 0.78);
+  letter-spacing: 0.04em;
+  min-width: 3.2rem;
+  text-align: center;
 }
 
-.nextArrow {
-  width: 2.75rem;
-  height: 2.75rem;
+.navArrow {
+  width: 1.85rem;
+  height: 1.85rem;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: rgba(243, 230, 212, 0.92);
-  color: #2a1f1a;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
-  transition: transform 0.2s ease;
-  margin-left: auto;
+  background: transparent;
+  color: rgba(55, 40, 28, 0.82);
+  transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
 }
 
-.nextArrow:active {
-  transform: scale(0.94);
+.navArrow svg {
+  width: 1.05rem;
+  height: 1.05rem;
 }
 
-.nextArrow svg {
-  width: 1.25rem;
-  height: 1.25rem;
+.navArrow:not(:disabled):active {
+  transform: scale(0.92);
+}
+
+.navArrow:not(:disabled):hover {
+  color: rgba(50, 32, 20, 0.95);
+}
+
+.navArrow:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+.navSpacer {
+  width: 1.85rem;
+  height: 1.85rem;
 }
 
 @keyframes pageTurn {
   from {
     opacity: 0;
-    transform: translateX(12px);
+    transform: translateX(10px);
   }
   to {
     opacity: 1;
@@ -142,7 +240,8 @@
     animation: none;
   }
 
-  .nextArrow {
+  .navArrow,
+  .hugInviteHotspot {
     transition: none;
   }
 }

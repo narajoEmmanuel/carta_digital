@@ -1,50 +1,95 @@
 .screen {
   min-height: 100%;
   height: 100%;
-  padding: 3.5rem 0.75rem calc(1.25rem + var(--safe-bottom));
+  padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #2a1f1c;
+  align-items: stretch;
+  justify-content: stretch;
+  background: #1a1412;
   position: relative;
   overflow: hidden;
 }
 
 .frame {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  max-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: hugReveal 0.6s ease both;
+  perspective: 900px;
 }
 
 .hugImage {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   display: block;
   user-select: none;
   -webkit-user-drag: none;
+  transform-origin: center center;
+  animation: hugPopupSpin 0.85s cubic-bezier(0.22, 1.15, 0.36, 1) both;
 }
 
-@keyframes hugReveal {
-  from {
+.homeButton {
+  position: absolute;
+  left: 50%;
+  bottom: calc(1.15rem + var(--safe-bottom));
+  transform: translateX(-50%);
+  z-index: 40;
+  font-family: var(--font-letter);
+  font-size: 1.15rem;
+  color: #2a1f1a;
+  background: rgba(255, 248, 235, 0.92);
+  border: 1.5px solid rgba(80, 50, 20, 0.22);
+  border-radius: 999px;
+  padding: 0.65rem 1.45rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.homeButton:active {
+  transform: translateX(-50%) scale(0.97);
+}
+
+.homeButton:focus {
+  outline: none;
+}
+
+.homeButton:focus-visible {
+  outline: 2px solid rgba(255, 248, 235, 0.9);
+  outline-offset: 3px;
+}
+
+@keyframes hugPopupSpin {
+  0% {
     opacity: 0;
-    transform: scale(0.94);
+    transform: scale(0.12) rotate(-200deg);
   }
-  to {
+  55% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1.06) rotate(12deg);
+  }
+  78% {
+    transform: scale(0.97) rotate(-4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .frame {
+  .hugImage {
     animation: none;
+  }
+
+  .homeButton {
+    transition: none;
   }
 }

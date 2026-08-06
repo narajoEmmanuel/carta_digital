@@ -3,6 +3,8 @@
    Mobile-first, editorial, nostálgico
 ───────────────────────────────────────────── */
 
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Patrick+Hand&display=swap');
+
 :root {
   /* Postal — sobria, editorial */
   --post-paper: #ebe2d0;
@@ -37,6 +39,7 @@
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Newsreader', Georgia, serif;
   --font-hand: 'Caveat', cursive;
+  --font-letter: 'Patrick Hand', 'Caveat', cursive;
   --font-ui: 'Syne', system-ui, sans-serif;
 
   /* Espaciado / layout */

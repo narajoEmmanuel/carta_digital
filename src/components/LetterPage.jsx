@@ -1,78 +1,130 @@
 import { useState } from 'react';
 import styles from '../styles/LetterPage.module.css';
 
-export default function LetterPage({ letter, endSlot = null }) {
-  const {
-    paperImage,
-    signatureImage,
-    greeting,
-    pages,
-    closing,
-  } = letter.letter;
+const PAPER = '/assets/letter/hoja_carta.png';
+const SIGNATURE = '/assets/letter/firma_artista.png';
+const HUG_INVITE_IMAGE = '/assets/hug/invitacion_abrazo.png';
 
+export default function LetterPage({
+  letter,
+  greeting,
+  onOpenHug,
+}) {
+  const {
+    paperImage = PAPER,
+    signatureImage = SIGNATURE,
+    pages = [],
+    closing,
+  } = letter;
+
+  const totalLetterPages = pages.length;
+  const totalSteps = totalLetterPages + 1;
   const [pageIndex, setPageIndex] = useState(0);
-  const page = pages[pageIndex];
-  const isLast = pageIndex >= pages.length - 1;
+
+  const isHugPage = pageIndex >= totalLetterPages;
+  const letterPageIndex = Math.min(pageIndex, Math.max(totalLetterPages - 1, 0));
+  const page = pages[letterPageIndex];
+  const paragraphs = page?.paragraphs || [];
+  const isFirstLetterPage = pageIndex === 0;
+  const isLastLetterPage = pageIndex === totalLetterPages - 1;
+
+  const goPrev = () => setPageIndex((i) => Math.max(0, i - 1));
+  const goNext = () => setPageIndex((i) => Math.min(totalSteps - 1, i + 1));
 
   return (
-    <div className={styles.reader}>
-      <div className={`${styles.letterPaper} ${styles.pageEnter}`} key={page.id}>
-        <img
-          className={styles.paperBackground}
-          src={paperImage}
-          alt=""
-          aria-hidden="true"
-          draggable={false}
-        />
+    <div className={`${styles.reader} ${isHugPage ? styles.readerHug : ''}`}>
+      {!isHugPage ? (
+        <div
+          className={`${styles.letterPaper} ${styles.pageEnter}`}
+          key={`letter-${page?.id || pageIndex}`}
+        >
+          <img
+            className={styles.paperBackground}
+            src={paperImage}
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+          />
 
-        <article className={styles.letterContent}>
-          {page.showGreeting && greeting ? (
-            <p className={styles.greeting}>{greeting}</p>
-          ) : null}
+          <article className={styles.letterContent}>
+            {isFirstLetterPage && greeting ? (
+              <p className={styles.greeting}>{greeting}</p>
+            ) : null}
 
-          <section className={styles.section}>
-            {page.paragraphs.map((paragraph, index) => (
-              <p key={`${page.id}-${index}`} className={styles.paragraph}>
-                {paragraph}
-              </p>
-            ))}
-          </section>
+            <section className={styles.section}>
+              {paragraphs.map((paragraph, index) => (
+                <p key={`${pageIndex}-${index}`} className={styles.paragraph}>
+                  {paragraph}
+                </p>
+              ))}
+            </section>
 
-          {page.showClosing && closing ? (
-            <p className={styles.closing}>{closing}</p>
-          ) : null}
-
-          {page.showSignature ? (
-            <img
-              className={styles.signature}
-              src={signatureImage}
-              alt="Firma de Emmanuel"
-              draggable={false}
-            />
-          ) : null}
-        </article>
-      </div>
-
-      <div className={styles.navRow}>
-        <span className={styles.pageMark} aria-hidden="true">
-          {pageIndex + 1} / {pages.length}
-        </span>
-
-        {!isLast ? (
+            {isLastLetterPage ? (
+              <>
+                {closing ? <p className={styles.closing}>{closing}</p> : null}
+                <img
+                  className={styles.signature}
+                  src={signatureImage}
+                  alt="Firma de Emmanuel"
+                  draggable={false}
+                />
+              </>
+            ) : null}
+          </article>
+        </div>
+      ) : (
+        <div className={`${styles.hugInviteScreen} ${styles.pageEnter}`} key="hug-invite">
+          <img
+            className={styles.hugInviteImage}
+            src={HUG_INVITE_IMAGE}
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+          />
           <button
             type="button"
-            className={styles.nextArrow}
-            onClick={() => setPageIndex((i) => i + 1)}
-            aria-label="Siguiente hoja"
+            className={styles.hugInviteHotspot}
+            aria-label="Abrir abrazo"
+            onClick={onOpenHug}
+          />
+        </div>
+      )}
+
+      <nav
+        className={`${styles.navRow} ${isHugPage ? styles.navRowHug : ''}`}
+        aria-label="Páginas de la carta"
+      >
+        <button
+          type="button"
+          className={styles.navArrow}
+          onClick={goPrev}
+          disabled={pageIndex === 0}
+          aria-label="Página anterior"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+            <path d="M15 6 9 12l6 6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+
+        <span className={styles.pageMark}>
+          {pageIndex + 1} / {totalSteps}
+        </span>
+
+        {!isHugPage ? (
+          <button
+            type="button"
+            className={styles.navArrow}
+            onClick={goNext}
+            aria-label="Página siguiente"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
               <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
-        ) : null}
-      </div>
-
-      {isLast ? endSlot : null}
+        ) : (
+          <span className={styles.navSpacer} aria-hidden="true" />
+        )}
+      </nav>
     </div>
   );
 }

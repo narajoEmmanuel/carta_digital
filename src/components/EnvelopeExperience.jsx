@@ -1,12 +1,22 @@
 import { useState } from 'react';
 import LetterPage from './LetterPage';
-import HugInvite from './HugInvite';
 import styles from '../styles/EnvelopeExperience.module.css';
 
 const STEPS = {
-  LETTER: 'letter',
+  LETTER_OUT: 'letter_out',
   READING: 'reading',
 };
+
+const LETTER_OUT_IMAGE = '/assets/envelope/sobre_carta_saliendo.png';
+
+function getRecipientSizeClass(name) {
+  const length = name.trim().length;
+
+  if (length >= 18) return 'nameExtraLong';
+  if (length >= 13) return 'nameLong';
+  if (length >= 9) return 'nameMedium';
+  return 'nameShort';
+}
 
 function BackButton({ onClick }) {
   return (
@@ -18,27 +28,10 @@ function BackButton({ onClick }) {
   );
 }
 
-function EnvelopeFrame({ src, alt, onClick }) {
-  return (
-    <button
-      type="button"
-      className={`${styles.frameBtn} ${styles.frameEnter}`}
-      onClick={onClick}
-      aria-label={alt}
-    >
-      <img
-        className={styles.frameImage}
-        src={src}
-        alt=""
-        draggable={false}
-      />
-    </button>
-  );
-}
-
 export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
-  const [step, setStep] = useState(STEPS.LETTER);
-  const { letterImage } = letter.envelope;
+  const [step, setStep] = useState(STEPS.LETTER_OUT);
+  const openingImage = letter.envelope?.letterImage || LETTER_OUT_IMAGE;
+  const envelopeName = letter.envelopeName || letter.name;
   const isReading = step === STEPS.READING;
 
   return (
@@ -48,15 +41,44 @@ export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
       <BackButton onClick={onBack} />
 
       <div className={`${styles.panel} ${isReading ? styles.panelReading : ''}`}>
-        {step === STEPS.LETTER && (
+        {step === STEPS.LETTER_OUT && (
           <>
+            <p className={styles.recipientFor} aria-hidden="true">
+              Para
+            </p>
+
             <div className={styles.envStage}>
-              <EnvelopeFrame
-                key="letter"
-                src={letterImage}
-                alt="Abrir la carta"
+              <button
+                type="button"
+                className={`${styles.frameBtn} ${styles.frameEnter}`}
                 onClick={() => setStep(STEPS.READING)}
-              />
+                aria-label="Leer la carta"
+              >
+                <div className={styles.envelopeLetterScene}>
+                  <img
+                    src={openingImage}
+                    alt=""
+                    aria-hidden="true"
+                    draggable={false}
+                    className={styles.envelopeLetterImage}
+                  />
+
+                  <div
+                    className={styles.recipientBlock}
+                    aria-label={`Carta para ${envelopeName}`}
+                  >
+                    <span
+                      className={`${styles.recipientName} ${styles[getRecipientSizeClass(envelopeName)]}`}
+                    >
+                      {envelopeName}
+                    </span>
+
+                    <span className={styles.recipientLocation}>
+                      MTY, N.L., MX
+                    </span>
+                  </div>
+                </div>
+              </button>
             </div>
             <p className={styles.envHint} aria-hidden="true">
               tocá para leer
@@ -67,8 +89,9 @@ export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
         {step === STEPS.READING && (
           <div className={styles.readWrap}>
             <LetterPage
-              letter={letter}
-              endSlot={<HugInvite onOpen={onOpenHug} />}
+              letter={letter.letter}
+              greeting={letter.greeting}
+              onOpenHug={onOpenHug}
             />
           </div>
         )}
