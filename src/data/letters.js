@@ -134,7 +134,18 @@ const PART_2 = [
       },
     ],
   },
-  'Perdón por las veces en las que desaparecí, tardé en responder o pude parecer distante. Nunca fue por falta de cariño ni porque no valorara nuestra amistad. A veces me encierro demasiado en mis cosas y no siempre sé demostrar correctamente lo importante que eres para mí.',
+  {
+    parts: [
+      { text: 'Perdón ' },
+      {
+        text: 'por las veces en las que desaparecí, tardé en responder o pude parecer distante',
+        italic: true,
+      },
+      {
+        text: '. Nunca fue por falta de cariño ni porque no valorara nuestra amistad. A veces me encierro demasiado en mis cosas y no siempre sé demostrar correctamente lo importante que eres para mí.',
+      },
+    ],
+  },
   {
     text: 'Gracias por tu paciencia, por tu comprensión y por haber seguido estando.',
     punchline: true,
@@ -145,7 +156,7 @@ const PART_2 = [
       { text: 'Finalmente, sigue disfrutando la vida al millón y ' },
       { text: 'creando recuerdos inolvidables', accent: true, accentTone: 'coral' },
       {
-        text: '. Te voy a querer siempre y que podrás contar con mi cariño y mi apoyo. Que esta carta sea un recordatorio de ello.',
+        text: '. Siempre podrás contar con mi cariño y mi apoyo. Que esta carta sea un recordatorio de ello.',
       },
     ],
   },
