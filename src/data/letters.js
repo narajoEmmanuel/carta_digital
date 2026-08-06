@@ -1,10 +1,11 @@
 /**
  * 10 cartas individuales — misma app, mismos assets, textos personalizables.
- * Links públicos: ?para=daniela-gomez  (nombre, no amistad01)
+ * Links públicos: /carta_digital/?para=daniela-gomez  (nombre, no amistad01)
+ * Listar todas: npm run links
  * Los ids internos amistad01…amistad10 siguen funcionando.
  */
 
-import { asset } from '../lib/assets';
+import { asset } from '../lib/assets.js';
 
 const SHARED_POSTCARD = {
   frontImage: asset('assets/postcard/postal_front.png'),
@@ -190,9 +191,29 @@ export const letters = {
 
 export const currentLetter = letters.amistad01;
 
-/** Link público para compartir: /carta_digital/?para=daniela-gomez */
+const DEFAULT_PUBLIC_ORIGIN = 'https://narajoEmmanuel.github.io/carta_digital';
+
+/** Link relativo al sitio: /carta_digital/?para=daniela-gomez */
 export function getSharePath(letter) {
-  return `${import.meta.env.BASE_URL}?para=${letter.slug}`;
+  const base = import.meta.env?.BASE_URL ?? '/';
+  return `${base}?para=${letter.slug}`;
+}
+
+/** URL absoluta para compartir (WhatsApp, etc.). */
+export function getShareUrl(letter, baseUrl = DEFAULT_PUBLIC_ORIGIN) {
+  const origin = String(baseUrl || DEFAULT_PUBLIC_ORIGIN).replace(/\/$/, '');
+  return `${origin}/?para=${letter.slug}`;
+}
+
+/** Lista las 10 cartas con slug + URL pública (para `npm run links`). */
+export function listShareLinks(baseUrl = DEFAULT_PUBLIC_ORIGIN) {
+  return Object.values(letters).map((letter) => ({
+    id: letter.id,
+    name: letter.name,
+    slug: letter.slug,
+    path: getSharePath(letter),
+    url: getShareUrl(letter, baseUrl),
+  }));
 }
 
 /**
