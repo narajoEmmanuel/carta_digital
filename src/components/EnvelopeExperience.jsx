@@ -96,7 +96,7 @@ export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
               </button>
             </div>
             <p className={styles.envHint} aria-hidden="true">
-              tocá para leer
+              toca para leer
             </p>
           </>
         )}

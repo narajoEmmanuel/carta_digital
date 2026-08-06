@@ -31,7 +31,22 @@
   user-select: none;
   -webkit-user-drag: none;
   transform-origin: center center;
-  animation: hugPopupSpin 1.25s cubic-bezier(0.18, 1.2, 0.32, 1) both;
+  animation: hugPopupSpin 1.45s cubic-bezier(0.14, 1.35, 0.28, 1) both;
+}
+
+.replayHotspot {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  width: min(72%, 280px);
+  height: min(48%, 320px);
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .homeButton {
@@ -41,7 +56,7 @@
   transform: translateX(-50%);
   z-index: 40;
   font-family: var(--font-letter);
-  font-size: 1.05rem;
+  font-size: calc(1.05rem + 2px);
   color: #fff8eb;
   background: transparent;
   border: none;
@@ -71,17 +86,20 @@
 @keyframes hugPopupSpin {
   0% {
     opacity: 0;
-    transform: scale(0.06) rotate(-320deg);
+    transform: scale(0.04) rotate(-340deg);
   }
-  45% {
+  42% {
     opacity: 1;
-    transform: scale(1.18) rotate(18deg);
+    transform: scale(1.32) rotate(22deg);
   }
-  68% {
-    transform: scale(0.92) rotate(-10deg);
+  62% {
+    transform: scale(0.84) rotate(-14deg);
   }
-  84% {
-    transform: scale(1.06) rotate(5deg);
+  78% {
+    transform: scale(1.12) rotate(8deg);
+  }
+  90% {
+    transform: scale(0.96) rotate(-3deg);
   }
   100% {
     opacity: 1;

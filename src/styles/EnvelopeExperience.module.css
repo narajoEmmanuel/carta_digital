@@ -98,9 +98,9 @@
 
 .envelopeLetterScene {
   position: relative;
-  width: min(94%, 400px);
+  width: min(96%, 430px);
   margin-inline: auto;
-  transform: scale(1.14) translateY(-6%);
+  transform: scale(1.22) translateY(-6%);
   transform-origin: center center;
   overflow: visible;
 }
@@ -124,7 +124,7 @@
 .recipientFor {
   flex-shrink: 0;
   z-index: 2;
-  margin: 0.85rem 0 0;
+  margin: 1.45rem 0 0;
   text-align: center;
   font-family: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
   font-size: clamp(1.35rem, 5.2vw, 1.8rem);
