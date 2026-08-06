@@ -9,7 +9,7 @@ import LetterUnavailable from './components/LetterUnavailable';
 
 /**
  * Flujo: home | postcard | envelope | hug
- * Destinatario: ?para=amistad01 … amistad10
+ * Destinatario: ?para=daniela-gomez (nombre) — también acepta amistad01…
  */
 export default function App() {
   const [view, setView] = useState('home');

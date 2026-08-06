@@ -1,6 +1,7 @@
 /**
  * 10 cartas individuales — misma app, mismos assets, textos personalizables.
- * Links: ?para=amistad01 … ?para=amistad10
+ * Links públicos: ?para=daniela-gomez  (nombre, no amistad01)
+ * Los ids internos amistad01…amistad10 siguen funcionando.
  */
 
 const SHARED_POSTCARD = {
@@ -38,9 +39,24 @@ const CIERRE = [
   'Me llevo con mucho cariño todo lo que compartimos y espero que la vida vuelva a permitirnos coincidir muchas veces más.',
 ];
 
+/** Convierte un nombre en slug de URL: "Daniela Gómez" → "daniela-gomez" */
+export function slugifyName(text) {
+  return String(text || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 function createFriend({ id, name, envelopeName, greeting, personal }) {
+  const displayName = envelopeName || name;
+  const slug = slugifyName(displayName);
+
   return {
     id,
+    slug,
     name,
     ...(envelopeName ? { envelopeName } : {}),
     greeting,
@@ -170,16 +186,35 @@ export const letters = {
   }),
 };
 
+export const currentLetter = letters.amistad01;
+
+/** Link público para compartir: /?para=daniela-gomez */
+export function getSharePath(letter) {
+  return `/?para=${letter.slug}`;
+}
+
 /**
- * Sin param → amistad01.
- * Param inválido → null (no mostrar otra carta).
+ * Resuelve por nombre (slug), id interno amistad01…10, o nombre completo.
+ * Sin param → primera carta.
+ * Param inválido → null.
  */
 export function getLetterByRecipient(recipientId) {
   if (!recipientId) {
     return letters.amistad01;
   }
 
-  return letters[recipientId] || null;
-}
+  if (letters[recipientId]) {
+    return letters[recipientId];
+  }
 
-export const currentLetter = letters.amistad01;
+  const key = slugifyName(recipientId);
+
+  return (
+    Object.values(letters).find(
+      (letter) =>
+        letter.slug === key ||
+        slugifyName(letter.name) === key ||
+        slugifyName(letter.envelopeName || '') === key,
+    ) || null
+  );
+}

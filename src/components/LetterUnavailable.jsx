@@ -1,3 +1,4 @@
+import { currentLetter, getSharePath } from '../data/letters';
 import styles from '../styles/LetterUnavailable.module.css';
 
 export default function LetterUnavailable({ recipientId }) {
@@ -9,7 +10,7 @@ export default function LetterUnavailable({ recipientId }) {
           No encontramos el enlace <span>“{recipientId}”</span>.
         </p>
       ) : null}
-      <a className={styles.link} href="/?para=amistad01">
+      <a className={styles.link} href={getSharePath(currentLetter)}>
         Ir al inicio
       </a>
     </main>
