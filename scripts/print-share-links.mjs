@@ -3,11 +3,11 @@
  *
  * Uso:
  *   npm run links
- *   BASE_URL=https://carta-digital.vercel.app npm run links
+ *   BASE_URL=https://carta-digital-ashy.vercel.app npm run links
  */
 import { listShareLinks } from '../src/data/letters.js';
 
-const DEFAULT_BASE = 'https://carta-digital.vercel.app';
+const DEFAULT_BASE = 'https://carta-digital-ashy.vercel.app';
 const baseUrl = (process.env.BASE_URL || DEFAULT_BASE).replace(/\/$/, '');
 
 const rows = listShareLinks(baseUrl);
