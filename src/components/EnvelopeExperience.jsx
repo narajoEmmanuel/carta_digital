@@ -8,6 +8,7 @@ const STEPS = {
 };
 
 const LETTER_OUT_IMAGE = '/assets/envelope/sobre_carta_saliendo.png';
+const ENVELOPE_BACKGROUND = '/assets/envelope/fondo_sobre_monterrey.png';
 
 function getRecipientSizeClass(name) {
   const length = name.trim().length;
@@ -36,15 +37,28 @@ export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
 
   return (
     <main
-      className={`${styles.screen} screen-enter ${isReading ? styles.screenReading : ''}`}
+      className={`${styles.envelopeExperience} screen-enter ${isReading ? styles.screenReading : ''}`}
     >
+      {!isReading && (
+        <>
+          <img
+            src={ENVELOPE_BACKGROUND}
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className={styles.envelopeBackground}
+          />
+          <div className={styles.envelopeGlow} aria-hidden="true" />
+        </>
+      )}
+
       <BackButton onClick={onBack} />
 
-      <div className={`${styles.panel} ${isReading ? styles.panelReading : ''}`}>
+      <div className={`${styles.envelopeContent} ${isReading ? styles.panelReading : ''}`}>
         {step === STEPS.LETTER_OUT && (
           <>
             <p className={styles.recipientFor} aria-hidden="true">
-              Para
+              Para:
             </p>
 
             <div className={styles.envStage}>
@@ -54,7 +68,7 @@ export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
                 onClick={() => setStep(STEPS.READING)}
                 aria-label="Leer la carta"
               >
-                <div className={styles.envelopeLetterScene}>
+                <div className={`${styles.envelopeLetterScene} ${styles.envelopeArtwork}`}>
                   <img
                     src={openingImage}
                     alt=""
