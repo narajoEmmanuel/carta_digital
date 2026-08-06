@@ -3,7 +3,7 @@ import { asset } from '../lib/assets';
 import styles from '../styles/HugCard.module.css';
 
 export default function HugCard({ letter, onBack }) {
-  const hugImage = letter.hug?.image ?? asset('assets/hug/muneco_abrazo_final.png');
+  const hugImage = letter.hug?.image ?? asset('assets/hug/muneco_abrazo_final.webp');
   const [playKey, setPlayKey] = useState(0);
 
   const replayHug = () => setPlayKey((k) => k + 1);

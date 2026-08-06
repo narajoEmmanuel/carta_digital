@@ -2,7 +2,7 @@ import { asset } from '../lib/assets';
 import ClickHint from './ClickHint';
 import styles from '../styles/PostcardPreview.module.css';
 
-const POSTAL_PREVIEW = asset('assets/home/postal_preview.png');
+const POSTAL_PREVIEW = asset('assets/home/postal_preview.webp');
 
 export default function PostcardPreview({ onOpen }) {
   return (

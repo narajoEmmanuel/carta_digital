@@ -3,7 +3,7 @@ import EnvelopePreview from './EnvelopePreview';
 import { asset } from '../lib/assets';
 import styles from '../styles/HomeHub.module.css';
 
-const HUB_BACKGROUND = asset('assets/home/fondo_inicial.png');
+const HUB_BACKGROUND = asset('assets/home/fondo_inicial.webp');
 
 export default function HomeHub({ onOpenPostcard, onOpenEnvelope }) {
   return (

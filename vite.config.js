@@ -1,9 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
-// Project Pages: https://narajoEmmanuel.github.io/carta_digital/
+// Vercel sets VERCEL=1 → root URL. GitHub Pages needs /carta_digital/.
 export default defineConfig({
-  base: '/carta_digital/',
+  base: process.env.VERCEL ? '/' : '/carta_digital/',
   plugins: [react()],
 })

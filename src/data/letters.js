@@ -1,6 +1,6 @@
 /**
  * 10 cartas individuales — misma app, mismos assets, textos personalizables.
- * Links públicos: /carta_digital/?para=daniela-gomez  (nombre, no amistad01)
+ * Links públicos: /?para=daniela-gomez  (nombre, no amistad01)
  * Listar todas: npm run links
  * Los ids internos amistad01…amistad10 siguen funcionando.
  */
@@ -8,23 +8,23 @@
 import { asset } from '../lib/assets.js';
 
 const SHARED_POSTCARD = {
-  frontImage: asset('assets/postcard/postal_front.png'),
-  backImage: asset('assets/postcard/postal_back.png'),
+  frontImage: asset('assets/postcard/postal_front.webp'),
+  backImage: asset('assets/postcard/postal_back.webp'),
 };
 
 const SHARED_ENVELOPE = {
-  closedImage: asset('assets/home/sobre_preview.png'),
-  openImage: asset('assets/envelope/sobre_abierto.png'),
-  letterImage: asset('assets/envelope/sobre_carta_saliendo.png'),
+  closedImage: asset('assets/home/sobre_preview.webp'),
+  openImage: asset('assets/envelope/sobre_carta_saliendo.webp'),
+  letterImage: asset('assets/envelope/sobre_carta_saliendo.webp'),
 };
 
 const SHARED_LETTER_META = {
-  paperImage: asset('assets/letter/hoja_carta.png'),
-  signatureImage: asset('assets/letter/firma_artista.png'),
+  paperImage: asset('assets/letter/hoja_carta.webp'),
+  signatureImage: asset('assets/letter/firma_artista.webp'),
 };
 
 const SHARED_HUG = {
-  image: asset('assets/hug/muneco_abrazo_final.png'),
+  image: asset('assets/hug/muneco_abrazo_final.webp'),
 };
 
 const GRATITUD = [
@@ -193,7 +193,7 @@ export const currentLetter = letters.amistad01;
 
 const DEFAULT_PUBLIC_ORIGIN = 'https://narajoEmmanuel.github.io/carta_digital';
 
-/** Link relativo al sitio: /carta_digital/?para=daniela-gomez */
+/** Link relativo al sitio: /carta_digital/?para=daniela-gomez (Pages) o /?para=… (Vercel) */
 export function getSharePath(letter) {
   const base = import.meta.env?.BASE_URL ?? '/';
   return `${base}?para=${letter.slug}`;
