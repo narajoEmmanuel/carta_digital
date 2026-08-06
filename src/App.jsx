@@ -47,7 +47,6 @@ export default function App() {
     screen = (
       <EnvelopeExperience
         letter={letter}
-        onBack={goHome}
         onOpenHug={() => setView('hug')}
       />
     );

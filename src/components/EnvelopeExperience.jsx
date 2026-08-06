@@ -19,19 +19,8 @@ function getRecipientSizeClass(name) {
   return 'nameShort';
 }
 
-function BackButton({ onClick }) {
-  return (
-    <button type="button" className="back-home" onClick={onClick} aria-label="Volver al inicio">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M15 6 9 12l6 6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </button>
-  );
-}
-
-export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
+export default function EnvelopeExperience({ letter, onOpenHug }) {
   const [step, setStep] = useState(STEPS.LETTER_OUT);
-  const [onHugInvite, setOnHugInvite] = useState(false);
   const openingImage = letter.envelope?.letterImage || LETTER_OUT_IMAGE;
   const envelopeName = letter.envelopeName || letter.name;
   const isReading = step === STEPS.READING;
@@ -52,8 +41,6 @@ export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
           <div className={styles.envelopeGlow} aria-hidden="true" />
         </>
       )}
-
-      {!onHugInvite && <BackButton onClick={onBack} />}
 
       <div className={`${styles.envelopeContent} ${isReading ? styles.panelReading : ''}`}>
         {step === STEPS.LETTER_OUT && (
@@ -107,7 +94,6 @@ export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
               letter={letter.letter}
               greeting={letter.greeting}
               onOpenHug={onOpenHug}
-              onHugScreenChange={setOnHugInvite}
             />
           </div>
         )}

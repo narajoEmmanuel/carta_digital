@@ -3,16 +3,6 @@ import styles from '../styles/PostcardExperience.module.css';
 
 const POSTCARD_BACKGROUND = '/assets/postcard/fondo_postal_costa_rica.png';
 
-function BackButton({ onClick }) {
-  return (
-    <button type="button" className="back-home" onClick={onClick} aria-label="Volver al inicio">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <path d="M15 6 9 12l6 6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </button>
-  );
-}
-
 export default function PostcardExperience({ letter, onBack }) {
   const [flipped, setFlipped] = useState(false);
   const frontImage = letter.postcard.frontImage ?? '/assets/postcard/postal_front.png';
@@ -30,8 +20,6 @@ export default function PostcardExperience({ letter, onBack }) {
       <div className={styles.postcardGlow} aria-hidden="true" />
 
       <div className={styles.postcardContent}>
-        <BackButton onClick={onBack} />
-
         <div className={styles.stage}>
           <button
             type="button"
@@ -55,6 +43,18 @@ export default function PostcardExperience({ letter, onBack }) {
             </div>
           </button>
         </div>
+
+        <p className={styles.tapHint} aria-hidden="true">
+          toca para leer
+        </p>
+
+        <button
+          type="button"
+          className={styles.homeButton}
+          onClick={onBack}
+        >
+          Volver al inicio
+        </button>
       </div>
     </main>
   );

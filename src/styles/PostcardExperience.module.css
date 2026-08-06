@@ -41,9 +41,57 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3.6rem 1.1rem 2rem;
+  gap: 0.35rem;
+  padding: 2.5rem 1.1rem calc(3.2rem + var(--safe-bottom));
+}
+
+.tapHint {
+  flex-shrink: 0;
+  margin-top: -0.85rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-letter);
+  font-size: calc(1.05rem - 1px);
+  color: #2f7480;
+  text-shadow: 0 1px 2px rgba(255, 248, 235, 0.35);
+  pointer-events: none;
+  user-select: none;
+}
+
+.homeButton {
+  position: absolute;
+  left: 50%;
+  bottom: calc(1.15rem + var(--safe-bottom));
+  transform: translateX(-50%);
+  z-index: 40;
+  font-family: var(--font-letter);
+  font-size: calc(1.05rem + 2px);
+  color: #fff8eb;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0.35rem 0.5rem;
+  box-shadow: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+.homeButton:active {
+  transform: translateX(-50%);
+  color: #ffffff;
+  opacity: 0.92;
+}
+
+.homeButton:focus {
+  outline: none;
+}
+
+.homeButton:focus-visible {
+  outline: 1px solid rgba(255, 248, 235, 0.45);
+  outline-offset: 4px;
 }
 
 .stage {

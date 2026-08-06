@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from '../styles/LetterPage.module.css';
 
 const PAPER = '/assets/letter/hoja_carta.png';
@@ -9,7 +9,6 @@ export default function LetterPage({
   letter,
   greeting,
   onOpenHug,
-  onHugScreenChange,
 }) {
   const {
     paperImage = PAPER,
@@ -28,11 +27,6 @@ export default function LetterPage({
   const paragraphs = page?.paragraphs || [];
   const isFirstLetterPage = pageIndex === 0;
   const isLastLetterPage = pageIndex === totalLetterPages - 1;
-
-  useEffect(() => {
-    onHugScreenChange?.(isHugPage);
-    return () => onHugScreenChange?.(false);
-  }, [isHugPage, onHugScreenChange]);
 
   const goPrev = () => setPageIndex((i) => Math.max(0, i - 1));
   const goNext = () => setPageIndex((i) => Math.min(totalSteps - 1, i + 1));

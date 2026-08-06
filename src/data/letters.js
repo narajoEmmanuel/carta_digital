@@ -75,12 +75,12 @@ function createFriend({ id, name, envelopeName, greeting, personal }) {
 export const letters = {
   amistad01: createFriend({
     id: 'amistad01',
-    name: 'Valentina Hernández',
-    envelopeName: 'Valentina',
-    greeting: 'Querida Valentina:',
+    name: 'Daniela Gómez',
+    envelopeName: 'Daniela Gómez',
+    greeting: 'Querida Daniela:',
     personal: [
-      '[Escribe aquí cómo conociste a esta persona.]',
-      '[Escribe aquí un recuerdo, una cualidad o algo que agradeces específicamente de esta persona.]',
+      'Gracias por tu vida, por tu amistad y por haber formado parte de esta etapa tan importante para mí.',
+      'Me llevo con mucho cariño todo lo que compartimos y espero que la vida vuelva a permitirnos coincidir muchas veces más.',
     ],
   }),
   amistad02: createFriend({
