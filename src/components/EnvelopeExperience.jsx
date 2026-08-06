@@ -89,7 +89,7 @@ export default function EnvelopeExperience({ letter, onBack, onOpenHug }) {
                     </span>
 
                     <span className={styles.recipientLocation}>
-                      MTY, N.L., MX
+                      Agosto, 2026
                     </span>
                   </div>
                 </div>
