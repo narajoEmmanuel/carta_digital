@@ -40,6 +40,7 @@
   --font-body: 'Newsreader', Georgia, serif;
   --font-hand: 'Caveat', cursive;
   --font-letter: 'Patrick Hand', 'Caveat', cursive;
+  --font-typewriter: 'Special Elite', 'Courier New', Courier, monospace;
   --font-ui: 'Syne', system-ui, sans-serif;
 
   /* Espaciado / layout */

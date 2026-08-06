@@ -11,15 +11,6 @@ const STEPS = {
 const LETTER_OUT_IMAGE = asset('assets/envelope/sobre_carta_saliendo.webp');
 const ENVELOPE_BACKGROUND = asset('assets/envelope/fondo_sobre_monterrey.webp');
 
-function getRecipientSizeClass(name) {
-  const length = name.trim().length;
-
-  if (length >= 18) return 'nameExtraLong';
-  if (length >= 13) return 'nameLong';
-  if (length >= 9) return 'nameMedium';
-  return 'nameShort';
-}
-
 export default function EnvelopeExperience({ letter, onOpenHug }) {
   const [step, setStep] = useState(STEPS.LETTER_OUT);
   const openingImage = letter.envelope?.letterImage || LETTER_OUT_IMAGE;
@@ -70,9 +61,7 @@ export default function EnvelopeExperience({ letter, onOpenHug }) {
                     className={styles.recipientBlock}
                     aria-label={`Carta para ${envelopeName}`}
                   >
-                    <span
-                      className={`${styles.recipientName} ${styles[getRecipientSizeClass(envelopeName)]}`}
-                    >
+                    <span className={`${styles.recipientName} ${styles.nameLong}`}>
                       {envelopeName}
                     </span>
 
