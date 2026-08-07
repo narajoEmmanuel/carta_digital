@@ -2,14 +2,18 @@
  * 10 cartas — UN solo diseño compartido (PART_1 + PART_2 + tipografía/acentos/firma).
  *
  * ─── CÓMO PERSONALIZAR ───────────────────────────────────────────
- * Solo edita en cada amistad (abajo en `letters`):
- *   - name / envelopeName / greeting
- *   - personal → 1 o 2 párrafos propios (reemplaza PERSONAL_TODO)
+ * Opción A — genérica (cuando necesites un link rápido; no publicadas de antemano):
+ *   createFriend({ id: 'amistad07', name: 'Carlos', gender: 'male' })
+ *   createFriend({ id: 'amistad08', name: 'Ana', gender: 'female' })
+ *   Luego: publicar solo ese link.
  *
- * NO edites PART_1 ni PART_2: son iguales para todas.
+ * Opción B — personalizada:
+ *   createFriend({ id, name, greeting, personal: ['¡Nombre! …', '…'] })
  *
+ * Opcional: plural: true → conjugación de ustedes (parejas).
+ *
+ * NO edites PART_1 ni PART_2 (salvo variantes _PLURAL).
  * Links: npm run links
- *        /?para=ximena  |  /?para=amistad02
  */
 
 import { asset } from '../lib/assets.js';
@@ -74,9 +78,40 @@ const PART_1 = [
 ];
 
 /**
- * Plantilla de la parte individual (única que cambia por amiga).
- * Sustituye los corchetes por texto real al personalizar.
+ * Nombre corto para saludo y apertura del personal.
+ * "Constanza Morales" → "Constanza"
  */
+export function firstName(name) {
+  return String(name || '')
+    .trim()
+    .split(/\s+/)[0];
+}
+
+/**
+ * Parte personal genérica — amigo (singular).
+ * El nombre aparece al inicio del texto.
+ */
+export function personalGenericMale(name) {
+  const n = firstName(name);
+  return [
+    `¡${n}! Siempre he valorado mucho tu amistad. Agradezco tu compañía, tus conversaciones y la forma tan genuina en que has estado presente en esta etapa de mi vida.`,
+    `Admiro tu corazón, tu carácter y todo lo que aportas a quienes te rodean. Gracias por ser un gran amigo. Deseo que Dios siga guiando tus pasos y que podamos seguir compartiendo muchos momentos más.`,
+  ];
+}
+
+/**
+ * Parte personal genérica — amiga (singular).
+ * El nombre aparece al inicio del texto.
+ */
+export function personalGenericFemale(name) {
+  const n = firstName(name);
+  return [
+    `¡${n}! Siempre he valorado mucho tu amistad. Agradezco tu compañía, tus conversaciones y la forma tan genuina en que has estado presente en esta etapa de mi vida.`,
+    `Admiro tu corazón, tu carácter y todo lo que aportas a quienes te rodean. Gracias por ser una gran amiga. Deseo que Dios siga guiando tus pasos y que podamos seguir compartiendo muchos momentos más.`,
+  ];
+}
+
+/** Plantilla vacía (corchetes) — preferir gender o personal propio. */
 const PERSONAL_TODO = [
   'Cuando pienso en ti, una de las primeras cosas que viene a mi mente es [cualidad o forma de ser]. Siempre he admirado de ti [segunda cualidad], porque [por qué importa].',
   'Recuerdo con mucho cariño [momento, anécdota o experiencia específica].',
@@ -467,35 +502,60 @@ export function slugifyName(text) {
 
 /**
  * Cada amistad = mismo diseño (PART_1 + PART_2).
- * Solo personaliza: name, envelopeName, greeting, personal.
- * Opcional: plural: true → conjugación de ustedes (PART_1/2_PLURAL).
+ *
+ * createFriend({
+ *   id, name,
+ *   gender: 'male' | 'female',  // genérica + saludo Querido/Querida
+ *   // o personal: ['¡Nombre! …', '…'] para texto a medida
+ *   plural: true,               // opcional (ustedes)
+ * })
  */
 function createFriend({
   id,
   name,
   envelopeName,
   greeting,
-  personal = PERSONAL_TODO,
+  personal,
+  gender,
   plural = false,
 }) {
   const displayName = envelopeName || name;
+  const shortName = firstName(displayName);
+
+  const resolvedGreeting =
+    greeting ||
+    (gender === 'male'
+      ? `Querido ${shortName},`
+      : gender === 'female'
+        ? `Querida ${shortName},`
+        : `Querida ${shortName},`);
+
+  const resolvedPersonal =
+    personal ||
+    (gender === 'male'
+      ? personalGenericMale(shortName)
+      : gender === 'female'
+        ? personalGenericFemale(shortName)
+        : PERSONAL_TODO);
+
   const slug = slugifyName(displayName);
   const personalReady =
-    JSON.stringify(personal) !== JSON.stringify(PERSONAL_TODO);
+    JSON.stringify(resolvedPersonal) !== JSON.stringify(PERSONAL_TODO);
 
   return {
     id,
     slug,
     name,
     envelopeName: displayName,
-    greeting,
+    greeting: resolvedGreeting,
+    gender: gender || null,
     personalReady,
     plural,
     postcard: { ...SHARED_POSTCARD },
     envelope: { ...SHARED_ENVELOPE },
     letter: {
       ...SHARED_LETTER_META,
-      pages: buildLetterPages(personal, { plural }),
+      pages: buildLetterPages(resolvedPersonal, { plural }),
       closing: 'Con cariño,',
       signedName: 'Emma.',
     },
@@ -513,7 +573,7 @@ export const letters = {
     name: 'Daniela Gómez',
     envelopeName: 'Daniela Gómez',
     greeting: 'Querida Daniela,',
-    personal: PERSONAL_TODO, // ← reemplazar por 1–2 párrafos propios
+    personal: PERSONAL_TODO,
   }),
   amistad02: createFriend({
     id: 'amistad02',
@@ -566,6 +626,9 @@ export const letters = {
       'Admiro mucho tu creatividad y el esfuerzo que pones para hacer realidad tus sueños. Siempre disfruto compartir contigo, ya sea en un parque, en un depa jugando Lego, en una reta de básquet, en el estadio viendo ganar a las Chivas o en una carrera nocturna a NS.',
     ],
   }),
+  // Slots libres — cuando necesites genérica:
+  // createFriend({ id: 'amistad07', name: 'Nombre', gender: 'male' })
+  // createFriend({ id: 'amistad07', name: 'Nombre', gender: 'female' })
   amistad07: createFriend({
     id: 'amistad07',
     name: 'Alejandra',
@@ -617,6 +680,7 @@ export function listShareLinks(baseUrl = DEFAULT_PUBLIC_ORIGIN) {
     id: letter.id,
     name: letter.name,
     slug: letter.slug,
+    gender: letter.gender,
     personalReady: letter.personalReady,
     path: getSharePath(letter),
     url: getShareUrl(letter, baseUrl),
