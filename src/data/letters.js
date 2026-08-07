@@ -1,18 +1,23 @@
 /**
- * 10 cartas — UN solo diseño compartido (PART_1 + PART_2 + tipografía/acentos/firma).
+ * Cartas de amistad (+ especiales) — diseño compartido PART_1 + PART_2.
  *
- * ─── CÓMO PERSONALIZAR ───────────────────────────────────────────
- * Opción A — genérica (cuando necesites un link rápido; no publicadas de antemano):
- *   createFriend({ id: 'amistad07', name: 'Carlos', gender: 'male' })
- *   createFriend({ id: 'amistad08', name: 'Ana', gender: 'female' })
- *   Luego: publicar solo ese link.
- *
+ * ─── AMISTAD (amistad01…20) ──────────────────────────────────────
+ * Opción A — genérica:
+ *   createFriend({ id: 'amistad11', name: 'Carlos', gender: 'male' })
  * Opción B — personalizada:
  *   createFriend({ id, name, greeting, personal: ['¡Nombre! …', '…'] })
+ * Opción C — plural (pareja):
+ *   createFriend({ id, name, greeting, plural: true, personal: […] })
  *
- * Opcional: plural: true → conjugación de ustedes (parejas).
+ * ─── ESPECIALES (más variación / experiencia más personal) ───────
+ *   createFriend({
+ *     id: 'especial-nayeli',
+ *     name: 'Nayeli',
+ *     special: true,
+ *     specialVariant: 'deep',  // 'deep' | 'mentor'
+ *     personal: [ '...', '...', '...', '...' ],  // 3 o 4 párrafos
+ *   })
  *
- * NO edites PART_1 ni PART_2 (salvo variantes _PLURAL).
  * Links: npm run links
  */
 
@@ -115,6 +120,17 @@ export function personalGenericFemale(name) {
 const PERSONAL_TODO = [
   'Cuando pienso en ti, una de las primeras cosas que viene a mi mente es [cualidad o forma de ser]. Siempre he admirado de ti [segunda cualidad], porque [por qué importa].',
   'Recuerdo con mucho cariño [momento, anécdota o experiencia específica].',
+];
+
+/**
+ * Plantilla ampliada para experiencias especiales (más personalización).
+ * Completar los 3–4 párrafos; el diseño de acentos de PART_1/2 se mantiene.
+ */
+const PERSONAL_SPECIAL_TODO = [
+  '[Nombre]! [Qué significa esta persona para ti / cómo llegó a tu vida].',
+  '[Cualidades que admiras, con más detalle y ejemplos concretos].',
+  '[Anécdotas o momentos que solo ustedes comparten].',
+  '[Deseo, agradecimiento o bendición personal antes del cierre compartido].',
 ];
 
 /**
@@ -346,6 +362,94 @@ const PART_2_PLURAL = [
   },
 ];
 
+/**
+ * Variante “deep” — apertura un poco más íntima (experiencias especiales).
+ */
+const PART_1_DEEP = [
+  {
+    parts: [
+      {
+        text: 'Hay personas que marcan una etapa de forma tan especial que uno no puede dejar de agradecerles. En Monterrey, tú has sido una de ellas: tienes un ',
+      },
+      {
+        text: 'lugar muy especial en mi corazón',
+        accent: true,
+        accentTone: 'rose',
+      },
+      {
+        text: ', y esta carta es una pequeña manera de expresártelo con más calma y detalle.',
+      },
+    ],
+  },
+  'Quizá ya lo sepas, o quizá no. Mi visa para continuar en México venció y, aún sin trabajo, regresé a Costa Rica por un tiempo, mientras se abren nuevas puertas que me permitan volver a las bellas tierras regias.',
+  {
+    parts: [
+      {
+        text: 'No',
+        circled: true,
+      },
+      { text: ' tomo este momento como ' },
+      {
+        text: 'una despedida definitiva',
+        accent: true,
+        accentTone: 'teal',
+      },
+      {
+        text: ', sino como la oportunidad perfecta para cerrar una etapa y dar paso a una nueva, llena de sorpresas y experiencias, con nuevas oportunidades para reencontrarnos y seguir cultivando nuestra amistad.',
+      },
+    ],
+  },
+];
+
+/**
+ * Variante “mentor” — apertura con gratitud por guía y acompañamiento.
+ */
+const PART_1_MENTOR = [
+  {
+    parts: [
+      {
+        text: 'Han sido cuatro años de mucho aprendizaje en Monterrey, y me hace muy feliz saber que tú has acompañado y guiado parte de este camino. Tienes un ',
+      },
+      {
+        text: 'lugar muy especial en mi corazón',
+        accent: true,
+        accentTone: 'rose',
+      },
+      {
+        text: ', y esta carta es una pequeña manera de expresarte mi gratitud.',
+      },
+    ],
+  },
+  'Quizá ya lo sepas, o quizá no. Mi visa para continuar en México venció y, aún sin trabajo, regresé a Costa Rica por un tiempo, mientras se abren nuevas puertas que me permitan volver a las bellas tierras regias.',
+  {
+    parts: [
+      {
+        text: 'No',
+        circled: true,
+      },
+      { text: ' tomo este momento como ' },
+      {
+        text: 'una despedida definitiva',
+        accent: true,
+        accentTone: 'teal',
+      },
+      {
+        text: ', sino como la oportunidad perfecta para cerrar una etapa y dar paso a una nueva, llena de sorpresas y experiencias, con nuevas oportunidades para reencontrarnos y seguir cultivando lo que juntos sembramos.',
+      },
+    ],
+  },
+];
+
+function personalSpecialTodo(name) {
+  const n = firstName(name);
+  return [
+    `${n}! [Qué significa esta persona para ti / cómo llegó a tu vida].`,
+    '[Cualidades que admiras, con más detalle y ejemplos concretos].',
+    '[Anécdotas o momentos que solo ustedes comparten].',
+    '[Deseo, agradecimiento o bendición personal antes del cierre compartido].',
+  ];
+}
+
 function paragraphText(paragraph) {
   if (typeof paragraph === 'string') return paragraph;
   if (paragraph.parts) {
@@ -478,10 +582,21 @@ function cloneParagraph(paragraph) {
   return { ...paragraph };
 }
 
-/** Carta = parte 1 + personal + parte 2 (mismo diseño para todas). */
-function buildLetterPages(personal, { plural = false } = {}) {
-  const part1 = plural ? PART_1_PLURAL : PART_1;
-  const part2 = plural ? PART_2_PLURAL : PART_2;
+/** Carta = parte 1 + personal + parte 2 (mismo diseño base). */
+function buildLetterPages(
+  personal,
+  { plural = false, specialVariant = null } = {},
+) {
+  let part1 = PART_1;
+  let part2 = PART_2;
+  if (plural) {
+    part1 = PART_1_PLURAL;
+    part2 = PART_2_PLURAL;
+  } else if (specialVariant === 'mentor') {
+    part1 = PART_1_MENTOR;
+  } else if (specialVariant === 'deep') {
+    part1 = PART_1_DEEP;
+  }
   return packLetterScreens([
     ...part1.map(cloneParagraph),
     ...personal.map(cloneParagraph),
@@ -501,13 +616,13 @@ export function slugifyName(text) {
 }
 
 /**
- * Cada amistad = mismo diseño (PART_1 + PART_2).
- *
  * createFriend({
  *   id, name,
- *   gender: 'male' | 'female',  // genérica + saludo Querido/Querida
- *   // o personal: ['¡Nombre! …', '…'] para texto a medida
- *   plural: true,               // opcional (ustedes)
+ *   gender: 'male' | 'female',
+ *   personal: ['…'],
+ *   plural: true,
+ *   special: true,
+ *   specialVariant: 'deep' | 'mentor',
  * })
  */
 function createFriend({
@@ -518,9 +633,12 @@ function createFriend({
   personal,
   gender,
   plural = false,
+  special = false,
+  specialVariant = null,
 }) {
   const displayName = envelopeName || name;
   const shortName = firstName(displayName);
+  const variant = specialVariant || (special ? 'deep' : null);
 
   const resolvedGreeting =
     greeting ||
@@ -530,17 +648,23 @@ function createFriend({
         ? `Querida ${shortName},`
         : `Querida ${shortName},`);
 
+  const specialPlaceholder = personalSpecialTodo(shortName);
   const resolvedPersonal =
     personal ||
-    (gender === 'male'
-      ? personalGenericMale(shortName)
-      : gender === 'female'
-        ? personalGenericFemale(shortName)
-        : PERSONAL_TODO);
+    (special || variant
+      ? specialPlaceholder
+      : gender === 'male'
+        ? personalGenericMale(shortName)
+        : gender === 'female'
+          ? personalGenericFemale(shortName)
+          : PERSONAL_TODO);
 
   const slug = slugifyName(displayName);
   const personalReady =
-    JSON.stringify(resolvedPersonal) !== JSON.stringify(PERSONAL_TODO);
+    JSON.stringify(resolvedPersonal) !== JSON.stringify(PERSONAL_TODO) &&
+    JSON.stringify(resolvedPersonal) !== JSON.stringify(specialPlaceholder) &&
+    JSON.stringify(resolvedPersonal) !==
+      JSON.stringify(PERSONAL_SPECIAL_TODO);
 
   return {
     id,
@@ -551,11 +675,16 @@ function createFriend({
     gender: gender || null,
     personalReady,
     plural,
+    special: Boolean(special || variant),
+    specialVariant: variant,
     postcard: { ...SHARED_POSTCARD },
     envelope: { ...SHARED_ENVELOPE },
     letter: {
       ...SHARED_LETTER_META,
-      pages: buildLetterPages(resolvedPersonal, { plural }),
+      pages: buildLetterPages(resolvedPersonal, {
+        plural,
+        specialVariant: variant,
+      }),
       closing: 'Con cariño,',
       signedName: 'Emma.',
     },
@@ -659,6 +788,88 @@ export const letters = {
     greeting: 'Querida Beatriz,',
     personal: PERSONAL_TODO,
   }),
+
+  // ── 10 slots adicionales de amistad (pendientes) ──
+  amistad11: createFriend({
+    id: 'amistad11',
+    name: 'Amistad 11',
+    personal: PERSONAL_TODO,
+  }),
+  amistad12: createFriend({
+    id: 'amistad12',
+    name: 'Amistad 12',
+    personal: PERSONAL_TODO,
+  }),
+  amistad13: createFriend({
+    id: 'amistad13',
+    name: 'Amistad 13',
+    personal: PERSONAL_TODO,
+  }),
+  amistad14: createFriend({
+    id: 'amistad14',
+    name: 'Amistad 14',
+    personal: PERSONAL_TODO,
+  }),
+  amistad15: createFriend({
+    id: 'amistad15',
+    name: 'Amistad 15',
+    personal: PERSONAL_TODO,
+  }),
+  amistad16: createFriend({
+    id: 'amistad16',
+    name: 'Amistad 16',
+    personal: PERSONAL_TODO,
+  }),
+  amistad17: createFriend({
+    id: 'amistad17',
+    name: 'Amistad 17',
+    personal: PERSONAL_TODO,
+  }),
+  amistad18: createFriend({
+    id: 'amistad18',
+    name: 'Amistad 18',
+    personal: PERSONAL_TODO,
+  }),
+  amistad19: createFriend({
+    id: 'amistad19',
+    name: 'Amistad 19',
+    personal: PERSONAL_TODO,
+  }),
+  amistad20: createFriend({
+    id: 'amistad20',
+    name: 'Amistad 20',
+    personal: PERSONAL_TODO,
+  }),
+
+  // ── Experiencias especiales (más variación de marco + personal largo) ──
+  // Completar `personal` con 3–4 párrafos propios cuando tengas el texto.
+  'especial-nayeli': createFriend({
+    id: 'especial-nayeli',
+    name: 'Nayeli',
+    envelopeName: 'Nayeli',
+    greeting: 'Querida Nayeli,',
+    gender: 'female',
+    special: true,
+    specialVariant: 'deep',
+  }),
+  'especial-ale-naranjo': createFriend({
+    id: 'especial-ale-naranjo',
+    name: 'Ale Naranjo',
+    envelopeName: 'Ale Naranjo',
+    greeting: 'Querido Ale,',
+    gender: 'male',
+    special: true,
+    specialVariant: 'deep',
+  }),
+  'especial-mentora': createFriend({
+    id: 'especial-mentora',
+    name: 'Mentora',
+    envelopeName: 'Mentora',
+    greeting: 'Querida Mentora,',
+    gender: 'female',
+    special: true,
+    specialVariant: 'mentor',
+  }),
 };
 
 export const currentLetter = letters.amistad01;
@@ -676,13 +887,15 @@ export function getShareUrl(letter, baseUrl = DEFAULT_PUBLIC_ORIGIN) {
   return `${origin}/?para=${letter.slug}`;
 }
 
-/** Lista las 10 cartas con slug + URL pública (para `npm run links`). */
+/** Lista cartas con slug + URL pública (para `npm run links`). */
 export function listShareLinks(baseUrl = DEFAULT_PUBLIC_ORIGIN) {
   return Object.values(letters).map((letter) => ({
     id: letter.id,
     name: letter.name,
     slug: letter.slug,
     gender: letter.gender,
+    special: letter.special,
+    specialVariant: letter.specialVariant,
     personalReady: letter.personalReady,
     path: getSharePath(letter),
     url: getShareUrl(letter, baseUrl),
@@ -690,7 +903,7 @@ export function listShareLinks(baseUrl = DEFAULT_PUBLIC_ORIGIN) {
 }
 
 /**
- * Resuelve por nombre (slug), id interno amistad01…10, o nombre completo.
+ * Resuelve por nombre (slug), id interno amistad01…20 / especial-*, o nombre.
  * Sin param → primera carta.
  * Param inválido → null.
  */
