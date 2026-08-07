@@ -172,8 +172,8 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 2.15rem !important;
-  height: 1.7rem !important;
+  width: 2.55rem !important;
+  height: 2rem !important;
   max-width: none !important;
   max-height: none !important;
   transform: translate(-50%, -50%) rotate(-10deg);
