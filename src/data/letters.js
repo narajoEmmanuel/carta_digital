@@ -1,8 +1,13 @@
 /**
- * 10 cartas individuales — una sola carta en 3 partes:
- *   parte 1 (compartida) + personal (única por amiga) + parte 2 (compartida)
- * Links públicos: /?para=daniela-gomez
- * Listar todas: npm run links
+ * 10 cartas individuales — UNA sola carta base para todas.
+ *
+ * Compartido en amistad01…amistad10 (incluido amigo1):
+ *   PART_1 + PART_2 + tipografía, acentos, firma, cierre
+ *
+ * Único por persona:
+ *   name / envelopeName / greeting / personal
+ *
+ * Links: /?para=daniela-gomez  |  npm run links
  */
 
 import { asset } from '../lib/assets.js';
@@ -46,7 +51,7 @@ const PART_1 = [
       },
     ],
   },
-  'Quizá ya lo sepas, o quizá no. Mi visa para continuar en México venció y, aun sin trabajo, tuve que regresar a Costa Rica por un tiempo, mientras se abren nuevas puertas que me permitan volver a las bellas tierras regias.',
+  'Quizá ya lo sepas, o quizá no. Mi visa para continuar en México venció y, aun sin trabajo, regresé a Costa Rica por un tiempo, mientras se abren nuevas puertas que me permitan volver a las bellas tierras regias.',
   {
     parts: [
       {
@@ -110,11 +115,15 @@ const PART_2 = [
     inspire: true,
   },
   {
-    text: 'Yo caí en ese error. Pensé que todavía tendría tiempo para agradecerte en persona, crear un nuevo recuerdo contigo y decirte lo especial que eres para mí. Ahora que regresé a casa, entendí que muchas veces esperamos el momento perfecto y, sin darnos cuenta, terminamos aplazando lo que realmente importa.',
+    text: 'Yo caí en ese error. Pensé que todavía tendría tiempo para agradecerte en persona, crear un nuevo recuerdo contigo y decirte lo especial que eres para mí.',
     inspire: true,
   },
   {
-    text: 'Por eso quiero compartirte algo que también intento aprender: hazlo hoy. Aunque dé miedo, incomode o parezca que habrá una mejor oportunidad después. No siempre sabemos cuánto tiempo tendremos, y el momento perfecto es ahora.',
+    text: 'Ahora que regresé a casa, entendí que muchas veces esperamos el momento perfecto y, sin darnos cuenta, terminamos aplazando lo que realmente importa.',
+    inspire: true,
+  },
+  {
+    text: 'Por eso quiero compartirte algo que también intento aprender: hazlo hoy. Aunque dé miedo, incomode o parezca que habrá una mejor oportunidad después. No siempre sabemos cuánto tiempo tendremos. El momento perfecto es ahora.',
     inspire: true,
   },
   {
@@ -130,7 +139,7 @@ const PART_2 = [
         italic: true,
       },
       {
-        text: '. Nunca fue mi intención, aunque reconozco que a veces no me doy cuenta cuando cometo el error de alejar a las personas que más quiero.',
+        text: '.',
       },
     ],
   },
@@ -231,9 +240,24 @@ function packLetterScreens(paragraphs) {
   return pages;
 }
 
-/** Carta = parte 1 + personal + parte 2, seguida en pantallas. */
+function cloneParagraph(paragraph) {
+  if (typeof paragraph === 'string') return paragraph;
+  if (paragraph.parts) {
+    return {
+      ...paragraph,
+      parts: paragraph.parts.map((part) => ({ ...part })),
+    };
+  }
+  return { ...paragraph };
+}
+
+/** Carta = parte 1 + personal + parte 2 (mismo diseño para todas). */
 function buildLetterPages(personal) {
-  return packLetterScreens([...PART_1, ...personal, ...PART_2]);
+  return packLetterScreens([
+    ...PART_1.map(cloneParagraph),
+    ...personal.map(cloneParagraph),
+    ...PART_2.map(cloneParagraph),
+  ]);
 }
 
 /** Convierte un nombre en slug de URL: "Daniela Gómez" → "daniela-gomez" */
@@ -247,7 +271,17 @@ export function slugifyName(text) {
     .replace(/^-+|-+$/g, '');
 }
 
-function createFriend({ id, name, envelopeName, greeting, personal }) {
+/**
+ * Cada amistad recibe la misma carta base.
+ * Solo cambia saludo/nombre y el bloque `personal`.
+ */
+function createFriend({
+  id,
+  name,
+  envelopeName,
+  greeting,
+  personal = PERSONAL_PLACEHOLDER,
+}) {
   const displayName = envelopeName || name;
   const slug = slugifyName(displayName);
 
@@ -275,7 +309,6 @@ export const letters = {
     name: 'Daniela Gómez',
     envelopeName: 'Daniela Gómez',
     greeting: 'Querida Daniela,',
-    personal: [...PERSONAL_PLACEHOLDER],
   }),
   amistad02: createFriend({
     id: 'amistad02',
@@ -292,56 +325,48 @@ export const letters = {
     name: 'Camila Torres',
     envelopeName: 'Camila Torres',
     greeting: 'Querida Camila,',
-    personal: [...PERSONAL_PLACEHOLDER],
   }),
   amistad04: createFriend({
     id: 'amistad04',
     name: 'Fernanda',
     envelopeName: 'Fernanda',
     greeting: 'Querida Fernanda,',
-    personal: [...PERSONAL_PLACEHOLDER],
   }),
   amistad05: createFriend({
     id: 'amistad05',
     name: 'Isabella Ruiz',
     envelopeName: 'Isabella Ruiz',
     greeting: 'Querida Isabella,',
-    personal: [...PERSONAL_PLACEHOLDER],
   }),
   amistad06: createFriend({
     id: 'amistad06',
     name: 'María José',
     envelopeName: 'María José',
     greeting: 'Querida María José,',
-    personal: [...PERSONAL_PLACEHOLDER],
   }),
   amistad07: createFriend({
     id: 'amistad07',
     name: 'Alejandra',
     envelopeName: 'Alejandra',
     greeting: 'Querida Alejandra,',
-    personal: [...PERSONAL_PLACEHOLDER],
   }),
   amistad08: createFriend({
     id: 'amistad08',
     name: 'Constanza Morales',
     envelopeName: 'Constanza Morales',
     greeting: 'Querida Constanza,',
-    personal: [...PERSONAL_PLACEHOLDER],
   }),
   amistad09: createFriend({
     id: 'amistad09',
     name: 'Guadalupe Santiago',
     envelopeName: 'Guadalupe Santiago',
     greeting: 'Querida Guadalupe,',
-    personal: [...PERSONAL_PLACEHOLDER],
   }),
   amistad10: createFriend({
     id: 'amistad10',
     name: 'Beatriz',
     envelopeName: 'Beatriz',
     greeting: 'Querida Beatriz,',
-    personal: [...PERSONAL_PLACEHOLDER],
   }),
 };
 
