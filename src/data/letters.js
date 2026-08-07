@@ -1,13 +1,15 @@
 /**
- * 10 cartas individuales — UNA sola carta base para todas.
+ * 10 cartas — UN solo diseño compartido (PART_1 + PART_2 + tipografía/acentos/firma).
  *
- * Compartido en amistad01…amistad10 (incluido amigo1):
- *   PART_1 + PART_2 + tipografía, acentos, firma, cierre
+ * ─── CÓMO PERSONALIZAR ───────────────────────────────────────────
+ * Solo edita en cada amistad (abajo en `letters`):
+ *   - name / envelopeName / greeting
+ *   - personal → 1 o 2 párrafos propios (reemplaza PERSONAL_TODO)
  *
- * Único por persona:
- *   name / envelopeName / greeting / personal
+ * NO edites PART_1 ni PART_2: son iguales para todas.
  *
- * Links: /?para=daniela-gomez  |  npm run links
+ * Links: npm run links
+ *        /?para=ximena  |  /?para=amistad02
  */
 
 import { asset } from '../lib/assets.js';
@@ -51,7 +53,7 @@ const PART_1 = [
       },
     ],
   },
-  'Quizá ya lo sepas, o quizá no. Mi visa para continuar en México venció y, aun sin trabajo, regresé a Costa Rica por un tiempo, mientras se abren nuevas puertas que me permitan volver a las bellas tierras regias.',
+  'Quizá ya lo sepas, o quizá no. Mi visa para continuar en México venció y, aún sin trabajo, regresé a Costa Rica por un tiempo, mientras se abren nuevas puertas que me permitan volver a las bellas tierras regias.',
   {
     parts: [
       {
@@ -72,11 +74,11 @@ const PART_1 = [
 ];
 
 /**
- * PARTE PERSONAL — única que cambia por amiga.
- * Completar los corchetes al personalizar cada carta.
+ * Plantilla de la parte individual (única que cambia por amiga).
+ * Sustituye los corchetes por texto real al personalizar.
  */
-const PERSONAL_PLACEHOLDER = [
-  'Cuando pienso en ti, una de las primeras cosas que viene a mi mente es [cualidad o forma de ser de la persona]. Siempre he admirado de ti [segunda cualidad], porque [explicación breve de por qué esa cualidad fue importante].',
+const PERSONAL_TODO = [
+  'Cuando pienso en ti, una de las primeras cosas que viene a mi mente es [cualidad o forma de ser]. Siempre he admirado de ti [segunda cualidad], porque [por qué importa].',
   'Recuerdo con mucho cariño [momento, anécdota o experiencia específica].',
 ];
 
@@ -98,9 +100,8 @@ const PART_2 = [
   },
   {
     parts: [
-      { text: 'Cada momento juntos los atesoraré siempre. ' },
       {
-        text: 'Doy gracias a Dios por tu amistad! Me alegra muchísimo haberte conocido.',
+        text: 'Doy gracias a Dios por tu amistad!',
         bold: true,
       },
     ],
@@ -133,7 +134,7 @@ const PART_2 = [
   'Así que te pido una disculpa por a veces no haber sabido aprovechar al máximo nuestra amistad.',
   {
     parts: [
-      { text: 'Perdón, ' },
+      { text: 'Perdón ' },
       {
         text: 'si en algún momento un gesto, una frase, un comentario, una actitud o algún comportamiento mío pudo haberte causado incomodidad o haberte herido',
         italic: true,
@@ -156,7 +157,7 @@ const PART_2 = [
     ],
   },
   {
-    text: 'Gracias por tu paciencia, por tu comprensión y por haber seguido estando.',
+    text: 'Gracias por tu paciencia, por tu comprensión y por haber seguido estando ahí.',
     punchline: true,
   },
   'Doy gracias por tu vida, por nuestra amistad y por todo lo que dejaste en mí durante esta etapa.',
@@ -165,13 +166,147 @@ const PART_2 = [
       { text: 'Finalmente, sigue disfrutando la vida al millón y ' },
       { text: 'creando recuerdos inolvidables', accent: true, accentTone: 'coral' },
       {
-        text: '. Siempre podrás contar con mi cariño y mi apoyo. Que esta carta sea un recordatorio de ello.',
+        text: '. Siempre podrás contar con mi cariño y mi apoyo.',
       },
     ],
   },
+  'Que esta carta sea un recordatorio de ello.',
   'Me quedo expectante y feliz por las muchas historias más que Dios nos regalará a su tiempo.',
   {
     text: 'Te quiero mucho!',
+    loveClose: true,
+  },
+];
+
+/**
+ * Variantes en plural (ustedes) — mismo diseño/acentos, otra conjugación.
+ * Usar con createFriend({ plural: true }) p. ej. Rocha y Ashly.
+ */
+const PART_1_PLURAL = [
+  {
+    parts: [
+      {
+        text: 'Han sido cuatro años maravillosos en Monterrey, y me hace muy feliz saber que ustedes han formado parte de la etapa más bonita de mi vida. Tienen un ',
+      },
+      {
+        text: 'lugar muy especial en mi corazón',
+        accent: true,
+        accentTone: 'rose',
+      },
+      {
+        text: ', y esta carta es una pequeña manera de expresárselo.',
+      },
+    ],
+  },
+  'Quizá ya lo sepan, o quizá no. Mi visa para continuar en México venció y, aún sin trabajo, regresé a Costa Rica por un tiempo, mientras se abren nuevas puertas que me permitan volver a las bellas tierras regias.',
+  {
+    parts: [
+      {
+        text: 'No',
+        circled: true,
+      },
+      { text: ' tomo este momento como ' },
+      {
+        text: 'una despedida definitiva',
+        accent: true,
+        accentTone: 'teal',
+      },
+      {
+        text: ', sino como la oportunidad perfecta para cerrar una etapa y dar paso a una nueva, llena de sorpresas y experiencias, con nuevas oportunidades para reencontrarnos y seguir cultivando nuestra amistad.',
+      },
+    ],
+  },
+];
+
+const PART_2_PLURAL = [
+  {
+    parts: [
+      {
+        text: 'Gracias por',
+        accent: true,
+        accentTone: 'amber',
+      },
+      {
+        text: ' cada risa juntos, cada conversación, cada abrazo, cada chiste y consejo. Gracias por ser siempre increíbles personas, llenas de luz, bondad y positividad. Me han llenado de motivación en muchos momentos, y estoy muy feliz por haber tenido el privilegio de compartir momentos cercanos con ustedes.',
+      },
+    ],
+  },
+  {
+    parts: [
+      {
+        text: '¡Doy gracias a Dios por su amistad!',
+        bold: true,
+      },
+    ],
+  },
+  'Si algo he aprendido en los últimos días es lo siguiente:',
+  {
+    text: 'Muchas veces vivimos pensando en el futuro, planeando y organizándolo todo, pero realmente no tenemos certeza de lo que sucederá mañana.',
+    inspire: true,
+  },
+  {
+    text: 'Decirnos que más adelante encontraremos el momento perfecto para agradecerle a una amistad, dar un abrazo, compartir con alguien que queremos, hacer una llamada, reconciliarnos o dar el primer paso en un nuevo proyecto es, muchas veces, un engaño disfrazado de: «Pronto lo haré; ahorita no tengo tiempo».',
+    inspire: true,
+  },
+  {
+    text: 'Yo caí en ese error. Pensé que todavía tendría tiempo para agradecerles en persona, crear un nuevo recuerdo con ustedes y decirles lo especiales que son para mí.',
+    inspire: true,
+  },
+  {
+    text: 'Ahora que regresé a casa, entendí que muchas veces esperamos el momento perfecto y, sin darnos cuenta, terminamos aplazando lo que realmente importa.',
+    inspire: true,
+  },
+  {
+    text: 'Por eso quiero compartirles algo que también intento aprender: háganlo hoy. Aunque dé miedo, incomode o parezca que habrá una mejor oportunidad después. No siempre sabemos cuánto tiempo tendremos. El momento perfecto es ahora.',
+    inspire: true,
+  },
+  {
+    text: 'Vivan el hoy.\nHáganlo hoy.\nDisfruten el hoy.',
+    punchline: true,
+  },
+  'Así que les pido una disculpa por a veces no haber sabido aprovechar al máximo nuestra amistad.',
+  {
+    parts: [
+      { text: 'Perdón ' },
+      {
+        text: 'si en algún momento un gesto, una frase, un comentario, una actitud o algún comportamiento mío pudo haberles causado incomodidad o haberles herido',
+        italic: true,
+      },
+      {
+        text: '.',
+      },
+    ],
+  },
+  {
+    parts: [
+      { text: 'Perdón ' },
+      {
+        text: 'por las veces en las que desaparecí, tardé en responder o pude parecer distante',
+        italic: true,
+      },
+      {
+        text: '. Nunca fue por falta de cariño ni porque no valorara nuestra amistad. A veces me encierro demasiado en mis cosas y no siempre sé demostrar correctamente lo importantes que son para mí.',
+      },
+    ],
+  },
+  {
+    text: 'Gracias por su paciencia, por su comprensión y por haber seguido estando ahí.',
+    punchline: true,
+  },
+  'Doy gracias por sus vidas, por nuestra amistad y por todo lo que dejaron en mí durante esta etapa.',
+  {
+    parts: [
+      { text: 'Finalmente, sigan disfrutando la vida al millón y ' },
+      { text: 'creando recuerdos inolvidables', accent: true, accentTone: 'coral' },
+      {
+        text: '. Siempre podrán contar con mi cariño y mi apoyo.',
+      },
+    ],
+  },
+  'Que esta carta sea un recordatorio de ello.',
+  'Me quedo expectante y feliz por las muchas historias más que Dios nos regalará a su tiempo.',
+  {
+    text: '¡Los quiero mucho!',
     loveClose: true,
   },
 ];
@@ -190,7 +325,13 @@ function paragraphText(paragraph) {
  */
 const SCREEN_CHAR_BUDGET = 780;
 const FIRST_SCREEN_CHAR_BUDGET = 720; // 1.ª pantalla lleva saludo
-const LAST_SCREEN_CHAR_BUDGET = 520; // última deja espacio a firma
+const LAST_SCREEN_CHAR_BUDGET = 480; // última deja espacio a firma
+const MIN_SCREEN_FILL = 600; // evita pantallas a medias (p. ej. personal largo)
+const SOFT_SCREEN_BUDGET = SCREEN_CHAR_BUDGET + 100; // margen al reequilibrar (personales largos)
+
+function pageCharCount(page) {
+  return page.paragraphs.reduce((n, p) => n + paragraphText(p).length, 0);
+}
 
 function packLetterScreens(paragraphs) {
   const pages = [];
@@ -221,21 +362,72 @@ function packLetterScreens(paragraphs) {
 
   flush();
 
+  // Reequilibra pantallas cortas jalando párrafos de la siguiente
+  for (let i = 0; i < pages.length - 1; i += 1) {
+    let filled = pageCharCount(pages[i]);
+    while (filled < MIN_SCREEN_FILL && pages[i + 1]?.paragraphs.length) {
+      const softBudget = i === 0 ? FIRST_SCREEN_CHAR_BUDGET : SOFT_SCREEN_BUDGET;
+      const nextPar = pages[i + 1].paragraphs[0];
+      const len = paragraphText(nextPar).length;
+      if (filled + len > softBudget) break;
+      // No vaciar el cierre con firma
+      if (i + 1 === pages.length - 1 && pages[i + 1].paragraphs.length <= 2) {
+        break;
+      }
+      pages[i].paragraphs.push(pages[i + 1].paragraphs.shift());
+      filled += len;
+      if (pages[i + 1].paragraphs.length === 0) {
+        pages.splice(i + 1, 1);
+      }
+    }
+  }
+
+  // Si una pantalla intermedia quedó pasada de peso, empuja párrafos a la siguiente
+  for (let i = 0; i < pages.length - 1; i += 1) {
+    const softBudget = i === 0 ? FIRST_SCREEN_CHAR_BUDGET : SOFT_SCREEN_BUDGET;
+    while (
+      pageCharCount(pages[i]) > softBudget &&
+      pages[i].paragraphs.length > 2
+    ) {
+      const moved = pages[i].paragraphs.pop();
+      pages[i + 1].paragraphs.unshift(moved);
+    }
+  }
+
   // Si la última pantalla está muy llena, separa el cierre para la firma
-  const last = pages[pages.length - 1];
+  let last = pages[pages.length - 1];
   if (last) {
-    const lastChars = last.paragraphs.reduce(
-      (n, p) => n + paragraphText(p).length,
-      0,
-    );
+    const lastChars = pageCharCount(last);
     if (last.paragraphs.length > 2 && lastChars > LAST_SCREEN_CHAR_BUDGET) {
-      const tail = last.paragraphs.splice(-2, 2);
+      const take =
+        lastChars > 650 || last.paragraphs.length > 4
+          ? Math.min(3, last.paragraphs.length - 1)
+          : 2;
+      const tail = last.paragraphs.splice(-take, take);
       pages.push({
         id: `page-${pages.length + 1}`,
         paragraphs: tail,
       });
     }
   }
+
+  // Si la penúltima quedó pesada y el cierre aún cabe un poco, pasa párrafos
+  if (pages.length >= 2) {
+    const prev = pages[pages.length - 2];
+    last = pages[pages.length - 1];
+    while (
+      pageCharCount(prev) > SOFT_SCREEN_BUDGET &&
+      prev.paragraphs.length > 2 &&
+      pageCharCount(last) < 420
+    ) {
+      last.paragraphs.unshift(prev.paragraphs.pop());
+    }
+  }
+
+  // Renumerar ids tras reequilibrar
+  pages.forEach((page, index) => {
+    page.id = `page-${index + 1}`;
+  });
 
   return pages;
 }
@@ -252,11 +444,13 @@ function cloneParagraph(paragraph) {
 }
 
 /** Carta = parte 1 + personal + parte 2 (mismo diseño para todas). */
-function buildLetterPages(personal) {
+function buildLetterPages(personal, { plural = false } = {}) {
+  const part1 = plural ? PART_1_PLURAL : PART_1;
+  const part2 = plural ? PART_2_PLURAL : PART_2;
   return packLetterScreens([
-    ...PART_1.map(cloneParagraph),
+    ...part1.map(cloneParagraph),
     ...personal.map(cloneParagraph),
-    ...PART_2.map(cloneParagraph),
+    ...part2.map(cloneParagraph),
   ]);
 }
 
@@ -272,18 +466,22 @@ export function slugifyName(text) {
 }
 
 /**
- * Cada amistad recibe la misma carta base.
- * Solo cambia saludo/nombre y el bloque `personal`.
+ * Cada amistad = mismo diseño (PART_1 + PART_2).
+ * Solo personaliza: name, envelopeName, greeting, personal.
+ * Opcional: plural: true → conjugación de ustedes (PART_1/2_PLURAL).
  */
 function createFriend({
   id,
   name,
   envelopeName,
   greeting,
-  personal = PERSONAL_PLACEHOLDER,
+  personal = PERSONAL_TODO,
+  plural = false,
 }) {
   const displayName = envelopeName || name;
   const slug = slugifyName(displayName);
+  const personalReady =
+    JSON.stringify(personal) !== JSON.stringify(PERSONAL_TODO);
 
   return {
     id,
@@ -291,11 +489,13 @@ function createFriend({
     name,
     envelopeName: displayName,
     greeting,
+    personalReady,
+    plural,
     postcard: { ...SHARED_POSTCARD },
     envelope: { ...SHARED_ENVELOPE },
     letter: {
       ...SHARED_LETTER_META,
-      pages: buildLetterPages(personal),
+      pages: buildLetterPages(personal, { plural }),
       closing: 'Con cariño,',
       signedName: 'Emma.',
     },
@@ -303,12 +503,17 @@ function createFriend({
   };
 }
 
+/**
+ * Catálogo de amistades.
+ * Para cada una: edita SOLO name / envelopeName / greeting / personal.
+ */
 export const letters = {
   amistad01: createFriend({
     id: 'amistad01',
     name: 'Daniela Gómez',
     envelopeName: 'Daniela Gómez',
     greeting: 'Querida Daniela,',
+    personal: PERSONAL_TODO, // ← reemplazar por 1–2 párrafos propios
   }),
   amistad02: createFriend({
     id: 'amistad02',
@@ -322,51 +527,66 @@ export const letters = {
   }),
   amistad03: createFriend({
     id: 'amistad03',
-    name: 'Camila Torres',
-    envelopeName: 'Camila Torres',
-    greeting: 'Querida Camila,',
+    name: 'Rubí',
+    envelopeName: 'Rubí',
+    greeting: 'Querida Rubí,',
+    personal: [
+      'Rubí! Me encanta tu disposición, tus gestos llenos de amor hacia los demás, la delicadeza que tienes y tu atención a los detalles.',
+      'Recuerdo con mucho cariño nuestros momentos delulu, nuestros chistes locos y ese gusto que compartimos por salir a correr, especialmente por tu deseo de convertir el ejercicio en una manera de honrar a Dios. Admiro tu dedicación y la forma en que eres una amiga ejemplar, llena de la bondad de Dios. Agradezco muchísimo aquel reto de oración que nos permitió conocernos mejor. Eres una chica genial!',
+    ],
   }),
   amistad04: createFriend({
     id: 'amistad04',
-    name: 'Fernanda',
-    envelopeName: 'Fernanda',
-    greeting: 'Querida Fernanda,',
+    name: 'Rocha y Ashly',
+    envelopeName: 'Rocha y Ashly',
+    greeting: 'Queridos Rocha y Ashly,',
+    plural: true,
+    personal: [
+      '¡Rocha y Ashly! Siempre he disfrutado mucho cada conversación con ustedes, cada una tan particular y acorde con nuestras personalidades, pero siempre valiosa y llena de aprendizajes. Me encantó poder verlos liderar a jóvenes tan diferentes y únicos, con el propósito de guiarlos a poner su mirada en Cristo.',
+      '¡He aprendido muchísimo sobre liderazgo a través de su ejemplo, y espero seguir aprendiendo de ustedes! Aprecio cada abrazo al saludarnos y cada recibimiento tan cálido y alegre. Aun siendo yo más tímido y reservado, siempre me han hecho sentir en confianza.',
+    ],
   }),
   amistad05: createFriend({
     id: 'amistad05',
     name: 'Isabella Ruiz',
     envelopeName: 'Isabella Ruiz',
     greeting: 'Querida Isabella,',
+    personal: PERSONAL_TODO,
   }),
   amistad06: createFriend({
     id: 'amistad06',
     name: 'María José',
     envelopeName: 'María José',
     greeting: 'Querida María José,',
+    personal: PERSONAL_TODO,
   }),
   amistad07: createFriend({
     id: 'amistad07',
     name: 'Alejandra',
     envelopeName: 'Alejandra',
     greeting: 'Querida Alejandra,',
+    personal: PERSONAL_TODO,
   }),
   amistad08: createFriend({
     id: 'amistad08',
     name: 'Constanza Morales',
     envelopeName: 'Constanza Morales',
     greeting: 'Querida Constanza,',
+    personal: PERSONAL_TODO,
   }),
   amistad09: createFriend({
     id: 'amistad09',
     name: 'Guadalupe Santiago',
     envelopeName: 'Guadalupe Santiago',
     greeting: 'Querida Guadalupe,',
+    personal: PERSONAL_TODO,
   }),
   amistad10: createFriend({
     id: 'amistad10',
     name: 'Beatriz',
     envelopeName: 'Beatriz',
     greeting: 'Querida Beatriz,',
+    personal: PERSONAL_TODO,
   }),
 };
 
@@ -391,6 +611,7 @@ export function listShareLinks(baseUrl = DEFAULT_PUBLIC_ORIGIN) {
     id: letter.id,
     name: letter.name,
     slug: letter.slug,
+    personalReady: letter.personalReady,
     path: getSharePath(letter),
     url: getShareUrl(letter, baseUrl),
   }));
