@@ -631,10 +631,12 @@ export const letters = {
   // createFriend({ id: 'amistad07', name: 'Nombre', gender: 'female' })
   amistad07: createFriend({
     id: 'amistad07',
-    name: 'Alejandra',
-    envelopeName: 'Alejandra',
-    greeting: 'Querida Alejandra,',
-    personal: PERSONAL_TODO,
+    name: 'Aaron',
+    envelopeName: 'Aaron',
+    greeting: 'Querido Aaron,',
+    personal: [
+      'Aaron! Eres un gran amigo y siempre me la paso súper bien contigo. Tienes una vibra tranquila y relajante, y al mismo tiempo eres muy divertido. Siempre recuerdo con cariño cada vez que te he ido a visitar a tu depa, tu enorme hospitalidad y tu disposición para servir. Cada conversación contigo es única, desde hablar en portugués, pasar por el inglés y terminar en temas más serios. Admiro mucho tu esfuerzo y el empeño que pones en todo lo que haces.',
+    ],
   }),
   amistad08: createFriend({
     id: 'amistad08',
