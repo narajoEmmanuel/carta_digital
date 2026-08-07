@@ -894,6 +894,8 @@ export function listShareLinks(baseUrl = DEFAULT_PUBLIC_ORIGIN) {
   return Object.values(letters).map((letter) => ({
     id: letter.id,
     name: letter.name,
+    envelopeName: letter.envelopeName,
+    greeting: letter.greeting,
     slug: letter.slug,
     gender: letter.gender,
     special: letter.special,
@@ -905,13 +907,13 @@ export function listShareLinks(baseUrl = DEFAULT_PUBLIC_ORIGIN) {
 }
 
 /**
- * Resuelve por nombre (slug), id interno amistad01…20 / especial-*, o nombre.
- * Sin param → primera carta.
- * Param inválido → null.
+ * Resuelve SOLO por id exacto o slug único del nombre.
+ * No usa “primer nombre” suelto (evita mezclar cartas).
+ * Sin ?para= o param inválido → null (no cae en otra persona).
  */
 export function getLetterByRecipient(recipientId) {
   if (!recipientId) {
-    return letters.amistad01;
+    return null;
   }
 
   if (letters[recipientId]) {
@@ -919,14 +921,34 @@ export function getLetterByRecipient(recipientId) {
   }
 
   const key = slugifyName(recipientId);
+  if (!key) {
+    return null;
+  }
 
-  return (
-    Object.values(letters).find(
-      (letter) =>
-        letter.slug === key ||
-        slugifyName(letter.name) === key ||
-        slugifyName(letter.envelopeName || '') === key ||
-        slugifyName(String(letter.name).split(/\s+/)[0] || '') === key,
-    ) || null
+  const matches = Object.values(letters).filter(
+    (letter) =>
+      letter.slug === key ||
+      slugifyName(letter.name) === key ||
+      slugifyName(letter.envelopeName || '') === key,
   );
+
+  if (matches.length === 1) {
+    return matches[0];
+  }
+
+  // Ambiguo o inexistente: no adivinar
+  return null;
 }
+
+/** Garantiza que ningún slug se repita entre cartas. */
+(function assertUniqueLetterSlugs() {
+  const seen = new Map();
+  for (const letter of Object.values(letters)) {
+    if (seen.has(letter.slug)) {
+      throw new Error(
+        `Slug duplicado "${letter.slug}": ${seen.get(letter.slug)} y ${letter.id}. Cada persona necesita un nombre/slug único.`,
+      );
+    }
+    seen.set(letter.slug, letter.id);
+  }
+})();

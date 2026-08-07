@@ -10,7 +10,8 @@ import LetterUnavailable from './components/LetterUnavailable';
 
 /**
  * Flujo: home | postcard | envelope | hug
- * Destinatario: ?para=daniela-gomez (nombre) — también acepta amistad01…
+ * Destinatario: ?para=ximena (slug del nombre) — también acepta amistad02…
+ * Sin ?para= → carta no disponible (evita mezclar destinatarios).
  * Preview: ?preview=iphone[&debugLayout=true]
  */
 export default function App() {
