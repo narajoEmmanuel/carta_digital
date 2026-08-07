@@ -769,10 +769,12 @@ export const letters = {
   }),
   amistad08: createFriend({
     id: 'amistad08',
-    name: 'Constanza Morales',
-    envelopeName: 'Constanza Morales',
-    greeting: 'Querida Constanza,',
-    personal: PERSONAL_TODO,
+    name: 'Bri',
+    envelopeName: 'Bri',
+    greeting: 'Querida Bri,',
+    personal: [
+      'Bri! Me encanta tu amistad porque, sin necesidad de decirnos demasiado, siento que tenemos mucho en común. Conversar contigo es súper lindo, tu madurez genera mucha comodidad y confianza, además eres súper divertida. Admiro mucho tu firmeza y seguridad, no dejes de irradiar sabiduría! Siempre recordaré con especial cariño esa última conversación en el café. Gracias a Dios se nos dio.',
+    ],
   }),
   amistad09: createFriend({
     id: 'amistad09',
