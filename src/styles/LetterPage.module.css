@@ -54,7 +54,10 @@
   position: relative;
   z-index: 1;
   height: 100%;
-  padding: clamp(4.8rem, 13vw, 5.8rem) clamp(1.75rem, 8vw, 2.4rem) clamp(4.4rem, 12vw, 5.4rem);
+  padding:
+    calc(clamp(3.1rem, 8.5vw, 3.8rem) + var(--safe-top))
+    clamp(1.75rem, 8vw, 2.4rem)
+    calc(clamp(4.4rem, 12vw, 5.4rem) + var(--safe-bottom));
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -64,7 +67,7 @@
 
 .greeting {
   font-family: var(--font-letter);
-  font-size: 17px;
+  font-size: 21px;
   font-weight: 700;
   color: #2c2a26;
   line-height: 1.35;
@@ -79,7 +82,7 @@
 
 .paragraph {
   font-family: var(--font-letter);
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
   color: #2c2a26;
   user-select: none;
@@ -95,7 +98,7 @@
 
 .inlineItalic {
   font-family: 'Times New Roman', Times, Georgia, serif;
-  font-size: 15px;
+  font-size: 19px;
   font-style: italic;
 }
 
@@ -181,7 +184,7 @@
 
 .loveClose {
   font-family: var(--font-letter);
-  font-size: 17px;
+  font-size: 21px;
   font-weight: 400;
   display: flex;
   align-items: center;
@@ -208,7 +211,7 @@
 .inspireParagraph {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 13.5px;
+  font-size: 17px;
   font-weight: 400;
   font-style: italic;
   line-height: 1.48;
@@ -219,7 +222,7 @@
 
 .paragraphPunchline {
   font-family: var(--font-typewriter);
-  font-size: 13.5px;
+  font-size: 17px;
   font-weight: 400;
   font-style: normal;
   line-height: 1.55;
@@ -234,7 +237,7 @@
 
 .closing {
   font-family: var(--font-letter);
-  font-size: 17px;
+  font-size: 21px;
   font-weight: 700;
   color: #2c2a26;
   margin-top: 0.35rem;
@@ -242,7 +245,7 @@
 
 .signedName {
   font-family: var(--font-letter);
-  font-size: 17px;
+  font-size: 21px;
   font-weight: 400;
   color: #2c2a26;
   margin-top: 0.1rem;
@@ -251,7 +254,7 @@
 
 .signature {
   display: block;
-  width: clamp(108px, 34vw, 148px);
+  width: clamp(130px, 40vw, 178px);
   height: auto;
   object-fit: contain;
   align-self: center;
@@ -351,7 +354,7 @@
 
 .pageMark {
   font-family: var(--font-letter);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   color: rgba(55, 40, 28, 0.78);
   letter-spacing: 0.04em;
   min-width: 3.2rem;
@@ -359,8 +362,8 @@
 }
 
 .navArrow {
-  width: 1.85rem;
-  height: 1.85rem;
+  width: 3.7rem;
+  height: 3.7rem;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -370,8 +373,8 @@
 }
 
 .navArrow svg {
-  width: 1.05rem;
-  height: 1.05rem;
+  width: 2.1rem;
+  height: 2.1rem;
 }
 
 .navArrow:not(:disabled):active {
@@ -388,8 +391,8 @@
 }
 
 .navSpacer {
-  width: 1.85rem;
-  height: 1.85rem;
+  width: 3.7rem;
+  height: 3.7rem;
 }
 
 @keyframes pageTurn {

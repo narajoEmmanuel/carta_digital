@@ -13,15 +13,30 @@
     linear-gradient(165deg, #1a2420 0%, #121816 100%);
 }
 
+/* Escenario canónico: scroll de página si la ventana es baja; sin scale/zoom. */
+.previewStage {
+  min-width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 40px;
+  background: #202020;
+  box-sizing: border-box;
+}
+
 .phone {
-  /* Marco de referencia 9:16 (p. ej. 405 × 720) */
-  --phone-h: min(92dvh, 720px);
+  /* Escritorio sin ?preview=iphone: marco de referencia 390×844 (puede caber en ventana) */
+  --device-w: 390;
+  --device-h: 844;
+  width: min(100%, 390px);
+  height: min(92dvh, calc(min(100%, 390px) * var(--device-h) / var(--device-w)));
+  aspect-ratio: 390 / 844;
+  max-width: 390px;
   position: relative;
-  height: var(--phone-h);
-  width: min(100%, calc(var(--phone-h) * 9 / 16));
-  aspect-ratio: 9 / 16;
-  max-width: 405px;
-  border-radius: 2.2rem;
+  border-radius: 2.4rem;
   background: #0d0f0e;
   box-shadow:
     0 0 0 2px #2a2e2c,
@@ -31,12 +46,24 @@
   flex-shrink: 0;
 }
 
+/* Exacto 390×844 — sin max-height de ventana, sin scale, sin zoom */
+.phonePreview {
+  width: 390px;
+  height: 844px;
+  max-width: none;
+  max-height: none;
+  min-width: 390px;
+  min-height: 844px;
+  flex: 0 0 auto;
+  aspect-ratio: auto;
+}
+
 .notch {
   position: absolute;
   top: 0.5rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 6rem;
+  width: 6.5rem;
   height: 1.25rem;
   background: #0d0f0e;
   border-radius: 999px;
@@ -74,15 +101,80 @@
 .caption {
   font-family: var(--font-ui);
   font-size: 0.7rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(197, 212, 200, 0.45);
+  color: rgba(180, 180, 180, 0.55);
+  flex: 0 0 auto;
 }
 
-/* En móvil real: sin marco, pantalla completa (altura explícita:
-   si solo hay min-height, height:100% del hub colapsa a 0 → pantalla beige). */
-@media (max-width: 480px) {
-  .workspace {
+/* ── debugLayout ─────────────────────────────── */
+
+.phoneDebug {
+  outline: 1px solid rgba(120, 220, 180, 0.85);
+  outline-offset: 0;
+}
+
+.screenDebug {
+  box-shadow: inset 0 0 0 1px rgba(255, 200, 80, 0.7);
+}
+
+.debugCrosshair {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+
+.debugCrossV,
+.debugCrossH {
+  position: absolute;
+  background: rgba(120, 200, 255, 0.28);
+}
+
+.debugCrossV {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+.debugCrossH {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.debugBadge {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.65rem;
+  z-index: 61;
+  margin: 0;
+  padding: 0.12rem 0.35rem;
+  font-family: var(--font-ui);
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+  color: rgba(220, 240, 230, 0.9);
+  background: rgba(10, 14, 12, 0.55);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+/* Hotspots transparentes visibles solo con debug */
+.debugLayout :global([class*='hugInviteHotspot']),
+.debugLayout :global([class*='replayHotspot']) {
+  background: rgba(255, 72, 72, 0.28) !important;
+  outline: 1px solid rgba(255, 100, 100, 0.75);
+  outline-offset: 0;
+}
+
+/* Celular real / viewport estrecho: full-bleed, sin marco ni etiqueta.
+   Excepción: ?preview=iphone siempre conserva 390×844 (ver bloque siguiente). */
+@media (max-width: 600px) {
+  .workspace:not(.previewStage) {
     padding: 0;
     background: none;
     display: block;
@@ -92,8 +184,9 @@
     min-height: 100dvh;
   }
 
-  .phone {
+  .phone:not(.phonePreview) {
     width: 100%;
+    min-width: 0;
     height: 100%;
     height: 100dvh;
     min-height: 100dvh;
@@ -102,19 +195,65 @@
     aspect-ratio: auto;
     border-radius: 0;
     box-shadow: none;
+    flex: none;
   }
 
-  .notch,
-  .homeIndicator,
-  .caption {
+  .workspace:not(.previewStage) .notch,
+  .workspace:not(.previewStage) .homeIndicator,
+  .workspace:not(.previewStage) .caption,
+  .workspace:not(.previewStage) .debugBadge,
+  .workspace:not(.previewStage) .debugCrosshair {
     display: none;
   }
 
-  .screen {
+  .phone:not(.phonePreview).phoneDebug,
+  .workspace:not(.previewStage) .screenDebug {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .phone:not(.phonePreview) .screen {
     position: absolute;
     inset: 0;
     border-radius: 0;
     height: 100%;
     min-height: 100%;
   }
+}
+
+/* Preview canónico: dimensiones exactas aunque el viewport sea estrecho */
+:global(html.preview-iphone) .previewStage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 100%;
+  min-height: 100dvh;
+  padding: 40px;
+  background: #202020;
+}
+
+:global(html.preview-iphone) .phonePreview {
+  width: 390px;
+  height: 844px;
+  min-width: 390px;
+  min-height: 844px;
+  max-width: none;
+  max-height: none;
+  aspect-ratio: auto;
+  border-radius: 2.4rem;
+  box-shadow:
+    0 0 0 2px #2a2e2c,
+    0 0 0 6px #1a1c1b,
+    0 24px 48px rgba(0, 0, 0, 0.45);
+  flex: 0 0 auto;
+}
+
+:global(html.preview-iphone) .caption {
+  display: block;
+}
+
+:global(html.preview-iphone) .notch,
+:global(html.preview-iphone) .homeIndicator {
+  display: block;
 }

@@ -44,6 +44,7 @@
   --font-ui: 'Syne', system-ui, sans-serif;
 
   /* Espaciado / layout */
+  --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --radius-soft: 4px;
   --shadow-paper: 0 8px 28px rgba(20, 18, 14, 0.22);
@@ -64,6 +65,20 @@ body,
   min-height: 100dvh;
   height: 100%;
   height: 100dvh;
+}
+
+/* Preview iPhone: permitir scroll de documento si 844px + padding no caben */
+html.preview-iphone,
+html.preview-iphone body,
+html.preview-iphone #root {
+  height: auto;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+html.preview-iphone body {
+  background: #202020;
 }
 
 html {

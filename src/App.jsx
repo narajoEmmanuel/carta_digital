@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { getLetterByRecipient } from './data/letters';
+import { getPreviewFlags } from './lib/preview';
 import PhoneShell from './components/PhoneShell';
 import HomeHub from './components/HomeHub';
 import PostcardExperience from './components/PostcardExperience';
@@ -10,27 +11,32 @@ import LetterUnavailable from './components/LetterUnavailable';
 /**
  * Flujo: home | postcard | envelope | hug
  * Destinatario: ?para=daniela-gomez (nombre) — también acepta amistad01…
+ * Preview: ?preview=iphone[&debugLayout=true]
  */
 export default function App() {
   const [view, setView] = useState('home');
 
-  const { letter, recipientId } = useMemo(() => {
+  const { letter, recipientId, previewIphone, debugLayout } = useMemo(() => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('para');
+    const flags = getPreviewFlags(window.location.search);
     return {
       recipientId: id,
       letter: getLetterByRecipient(id),
+      ...flags,
     };
   }, []);
 
   const goHome = () => setView('home');
 
+  const shell = (screen) => (
+    <PhoneShell previewIphone={previewIphone} debugLayout={debugLayout}>
+      {screen}
+    </PhoneShell>
+  );
+
   if (!letter) {
-    return (
-      <PhoneShell>
-        <LetterUnavailable recipientId={recipientId} />
-      </PhoneShell>
-    );
+    return shell(<LetterUnavailable recipientId={recipientId} />);
   }
 
   let screen = (
@@ -54,5 +60,5 @@ export default function App() {
     screen = <HugCard letter={letter} onBack={goHome} />;
   }
 
-  return <PhoneShell>{screen}</PhoneShell>;
+  return shell(screen);
 }
